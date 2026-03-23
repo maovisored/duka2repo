@@ -78,11 +78,6 @@ export default function App() {
         <Route path="/customers" element={<Customers />} />
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/analytics" element={<Analytics />} />
-        <Route path="/reports" element={<Reports />} />
-        <Route path="/network" element={<Network />} />
-        <Route path="/alerts" element={<Alerts />} />
-        <Route path="/live-feed" element={<LiveFeed />} />
-        <Route path="/dispatch" element={<Dispatch />} />
         <Route path="/inventory" element={<Inventory />} />
         <Route path="/settings" element={<Settings />} />
       </Route>
