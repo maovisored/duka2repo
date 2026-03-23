@@ -1,7 +1,14 @@
-import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
 
-const API = axios.create({
-  baseURL: "http://localhost:5000", // your backend
-});
+export async function apiFetch(url, options = {}) {
+  const token = localStorage.getItem("duka2_token");
 
-export default API;
+  return fetch(`${API_URL}${url}`, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token ? `Bearer ${token}` : "",
+      ...options.headers,
+    },
+  });
+}

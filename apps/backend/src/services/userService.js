@@ -1,5 +1,7 @@
 import { pool } from "../config/db.js";
 import bcrypt from "bcryptjs";
+import { logger } from "../utils/logger.js";
+
 
 /* ===================== */
 /* GET USER BY PHONE */

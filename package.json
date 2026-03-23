@@ -1,13 +1,5 @@
 {
-  "name": "duka2",
-  "private": true,
-  "scripts": {
-    "dev": "concurrently \"npm run dev --prefix apps/backend\" \"npm run dev --prefix apps/admin\" \"npm run dev --prefix apps/customer\"",
-    "backend": "npm run dev --prefix apps/backend",
-    "admin": "npm run dev --prefix apps/admin",
-    "customer": "npm run dev --prefix apps/customer"
-  },
-  "devDependencies": {
-    "concurrently": "^8.2.2"
+  "dependencies": {
+    "jwt-decode": "^4.0.0"
   }
 }

@@ -10,13 +10,18 @@ const router = express.Router();
 /* ===================== */
 router.post("/login", async (req, res) => {
   try {
+    console.log("BODY:", req.body);
+
     let { phone, pin } = req.body;
 
     if (!phone || !pin) {
+      console.log("Missing fields");
       return res.status(400).json({ message: "Phone and PIN required" });
     }
 
     const user = await getUserByPhone(phone);
+
+    console.log("USER FOUND:", user);
 
     if (!user) {
       return res.status(401).json({ message: "Invalid credentials" });
@@ -24,11 +29,15 @@ router.post("/login", async (req, res) => {
 
     const valid = await bcrypt.compare(pin, user.pin);
 
+    console.log("PASSWORD VALID:", valid);
+
     if (!valid) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
     const token = generateToken(user);
+
+    console.log("TOKEN:", token);
 
     const { pin: _, ...safeUser } = user;
 
@@ -39,10 +48,7 @@ router.post("/login", async (req, res) => {
 
   } catch (err) {
     console.error("LOGIN ERROR:", err);
-
-    return res.status(500).json({
-      message: "Login failed",
-    });
+    return res.status(500).json({ message: "Login failed" });
   }
 });
 

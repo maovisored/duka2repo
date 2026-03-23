@@ -16,9 +16,6 @@ Duka2
 │  │  │  └─ icons.svg
 │  │  ├─ README - Copy.md
 │  │  ├─ README.md
-│  │  ├─ server
-│  │  │  ├─ index.js
-│  │  │  └─ index.jsx
 │  │  ├─ src
 │  │  │  ├─ api
 │  │  │  │  ├─ api.js
@@ -37,7 +34,8 @@ Duka2
 │  │  │  │  └─ AppLayout.jsx
 │  │  │  ├─ main.jsx
 │  │  │  ├─ middleware
-│  │  │  │  └─ ErrorBoundary.jsx
+│  │  │  │  ├─ ErrorBoundary.jsx
+│  │  │  │  └─ ProtectedRoute.jsx
 │  │  │  ├─ pages
 │  │  │  │  ├─ Admin
 │  │  │  │  │  └─ ProductsAdmin.jsx
@@ -64,7 +62,8 @@ Duka2
 │  │  │  │  ├─ Transactions.jsx
 │  │  │  │  └─ Users.jsx
 │  │  │  └─ theme.css
-│  │  └─ vite.config.js
+│  │  ├─ vite.config.js
+│  │  └─ {
 │  ├─ backend
 │  │  ├─ package-lock.json
 │  │  ├─ package.json
@@ -92,7 +91,6 @@ Duka2
 │  │     │  ├─ adminRoutes.js
 │  │     │  ├─ loginRoutes.js
 │  │     │  ├─ productsRouter.js
-│  │     │  ├─ ProtectedRoute.jsx
 │  │     │  └─ usersRouter.js
 │  │     ├─ scripts
 │  │     │  └─ seedAdmin.js
@@ -198,7 +196,6 @@ Duka2
 │  └─ database
 │     └─ schema.sql
 ├─ package-lock.json
-├─ package.json
 └─ README.md
 
 ```

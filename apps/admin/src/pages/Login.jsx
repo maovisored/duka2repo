@@ -44,9 +44,10 @@ const handleLogin = async (e) => {
 
     const res = await fetch(`${API_URL}/api/users/login`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+headers: {
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${localStorage.getItem("duka2_token")}`
+},
       body: JSON.stringify({ phone, pin: form.pin }),
     });
 
@@ -70,7 +71,10 @@ const handleLogin = async (e) => {
 
     console.log("✅ Login success:", data);
 
-    localStorage.setItem("duka2_current_user", JSON.stringify(data.user));
+
+
+localStorage.setItem("duka2_current_user", JSON.stringify(data.user));
+localStorage.setItem("duka2_token", data.token);
 
     navigate("/");
 

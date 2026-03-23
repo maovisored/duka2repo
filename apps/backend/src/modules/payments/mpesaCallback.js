@@ -8,7 +8,10 @@ async function logToServer(level, message, data) {
   try {
     await fetch("http://localhost:5001/log", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+headers: {
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${localStorage.getItem("duka2_token")}`
+},
       body: JSON.stringify({ level, message, data }),
     });
   } catch (err) {

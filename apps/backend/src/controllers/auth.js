@@ -2,6 +2,9 @@ import jwt from "jsonwebtoken";
 
 const SECRET = process.env.JWT_SECRET || "duka2_secret";
 
+/* ===================== */
+/* GENERATE TOKEN */
+/* ===================== */
 export function generateToken(user) {
   return jwt.sign(
     {
@@ -10,10 +13,19 @@ export function generateToken(user) {
       role: user.role,
     },
     SECRET,
-    { expiresIn: "7d" }
+    {
+      expiresIn: "7d",
+    }
   );
 }
 
+/* ===================== */
+/* VERIFY TOKEN (UTILITY) */
+/* ===================== */
 export function verifyToken(token) {
-  return jwt.verify(token, SECRET);
+  try {
+    return jwt.verify(token, SECRET);
+  } catch (err) {
+    return null;
+  }
 }
