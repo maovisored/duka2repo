@@ -2,7 +2,6 @@ import { pool } from "../config/db.js";
 import bcrypt from "bcryptjs";
 import { logger } from "../utils/logger.js";
 
-
 /* ===================== */
 /* GET USER BY PHONE */
 /* ===================== */
@@ -15,34 +14,11 @@ export async function getUserByPhone(phone) {
 }
 
 /* ===================== */
-/* GET ALL CUSTOMERS (WITH STATS) */
+/* GET ALL CUSTOMERS (FOR /users) */
 /* ===================== */
-export async function getCustomers() {
-  const result = await pool.query(`
-    SELECT 
-      u.id,
-      u.phone,
-      u.first_name,
-      u.last_name,
-      u.role,
-      u.created_at,
+export async function getAllUsers({ page = 1, limit = 20 }) {
+  const offset = (page - 1) * limit;
 
-      COUNT(o.id) AS total_orders,
-      COALESCE(SUM(o.amount), 0) AS total_spent
-
-    FROM users u
-    LEFT JOIN orders o ON o.user_id = u.id
-    GROUP BY u.id
-    ORDER BY total_spent DESC;
-  `);
-
-  return result.rows;
-}
-
-/* ===================== */
-/* GET SINGLE CUSTOMER */
-/* ===================== */
-export async function getCustomerById(id) {
   const result = await pool.query(
     `
     SELECT 
@@ -50,11 +26,63 @@ export async function getCustomerById(id) {
       u.phone,
       u.first_name,
       u.last_name,
-      u.role,
-      u.created_at,
 
       COUNT(o.id) AS total_orders,
       COALESCE(SUM(o.amount), 0) AS total_spent
+
+    FROM users u
+    LEFT JOIN orders o ON o.user_id = u.id
+    GROUP BY u.id
+    ORDER BY total_spent DESC
+    LIMIT $1 OFFSET $2;
+    `,
+    [limit, offset]
+  );
+
+  return result.rows;
+}
+
+/* ===================== */
+/* GET CUSTOMER STATS (FOR /users/stats) */
+/* ===================== */
+export async function getUserStats() {
+  const result = await pool.query(`
+    SELECT 
+      COUNT(*) AS total,
+      COUNT(CASE WHEN t.total_orders > 0 THEN 1 END) AS active,
+      COUNT(CASE WHEN u.created_at >= NOW() - INTERVAL '7 days' THEN 1 END) AS new,
+      COALESCE(MAX(t.total_spent), 0) AS top_spender
+
+    FROM users u
+    LEFT JOIN (
+      SELECT 
+        user_id,
+        COUNT(*) AS total_orders,
+        SUM(amount) AS total_spent
+      FROM orders
+      GROUP BY user_id
+    ) t ON t.user_id = u.id;
+  `);
+
+  return result.rows[0];
+}
+
+/* ===================== */
+/* GET SINGLE CUSTOMER DETAILS */
+/* ===================== */
+export async function getUserDetails(id) {
+  const userResult = await pool.query(
+    `
+    SELECT 
+      u.id,
+      u.phone,
+      u.first_name,
+      u.last_name,
+
+      COALESCE(SUM(o.amount), 0) AS total_spent,
+      COALESCE(AVG(o.amount), 0) AS avg_order,
+
+      MAX(o.created_at) AS last_order
 
     FROM users u
     LEFT JOIN orders o ON o.user_id = u.id
@@ -64,14 +92,11 @@ export async function getCustomerById(id) {
     [id]
   );
 
-  return result.rows[0];
-}
+  const user = userResult.rows[0];
 
-/* ===================== */
-/* GET CUSTOMER ORDERS */
-/* ===================== */
-export async function getCustomerOrders(id) {
-  const result = await pool.query(
+  if (!user) return null;
+
+  const ordersResult = await pool.query(
     `
     SELECT 
       id,
@@ -85,7 +110,10 @@ export async function getCustomerOrders(id) {
     [id]
   );
 
-  return result.rows;
+  return {
+    ...user,
+    orders: ordersResult.rows,
+  };
 }
 
 /* ===================== */
