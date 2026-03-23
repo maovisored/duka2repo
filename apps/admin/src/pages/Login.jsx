@@ -37,11 +37,14 @@ export default function Login() {
     setLoading(true);
 
     const phone = normalizePhone(form.phone);
+    const API_URL = import.meta.env.VITE_API_URL;
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch(`${API_URL}/api/users/login`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
         body: JSON.stringify({
           phone,
           pin: form.pin,

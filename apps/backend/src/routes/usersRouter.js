@@ -22,7 +22,15 @@ function normalizePhone(phone) {
 /* ===================== */
 router.post("/register", async (req, res) => {
   try {
-    let { phone, pin, firstName, lastName, idNo, shopName, shopAddress } = req.body;
+    let {
+      phone,
+      pin,
+      firstName,
+      lastName,
+      idNo,
+      shopName,
+      shopAddress,
+    } = req.body;
 
     phone = normalizePhone(phone);
 
@@ -50,8 +58,6 @@ router.post("/register", async (req, res) => {
       shopAddress,
     });
 
-    console.log("USER DATA:", user);
-
     const token = generateToken(user);
 
     const { pin: _, ...safeUser } = user;
@@ -64,50 +70,44 @@ router.post("/register", async (req, res) => {
 
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Registration failed" });
+    return res.status(500).json({ message: "Registration failed" });
   }
 });
 
 /* ===================== */
 /* LOGIN */
 /* ===================== */
-
 router.post("/login", async (req, res) => {
   try {
     let { phone, pin } = req.body;
 
-    // 1. Validate input
     if (!phone || !pin) {
       return res.status(400).json({ message: "Phone and PIN required" });
     }
 
-    // 2. Normalize
     phone = normalizePhone(phone);
 
-    // 3. Get user
     const user = await getUserByPhone(phone);
 
     if (!user || !user.pin) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    // 4. Check password
     const valid = await bcrypt.compare(pin, user.pin);
 
     if (!valid) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    // 5. Success
     const token = generateToken(user);
 
-const { pin: _, ...safeUser } = user;
+    const { pin: _, ...safeUser } = user;
 
-return res.json({
-  user: safeUser,
-  token,
-  message: "Login successful",
-});
+    return res.json({
+      user: safeUser,
+      token,
+      message: "Login successful",
+    });
 
   } catch (err) {
     console.error(err);

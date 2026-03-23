@@ -17,8 +17,7 @@ import Alerts from "./pages/Alerts";
 import LiveFeed from "./pages/LiveFeed";
 import Dispatch from "./pages/Dispatch";
 import Inventory from "./pages/Inventory";
-
-import ProtectedRoute from "/Dev - Copy/Duka2/apps/backend/src/routes/ProtectedRoute.jsx";
+import ProtectedRoute from "./middleware/ProtectedRoute";
 
 import "./theme.css";
 

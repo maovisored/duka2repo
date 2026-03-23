@@ -3,17 +3,9 @@
 Duka2
 ├─ apps
 │  ├─ admin
-│  │  ├─ .env.local
 │  │  ├─ .vercel
 │  │  │  ├─ project.json
 │  │  │  └─ README.txt
-│  │  ├─ dist
-│  │  │  ├─ assets
-│  │  │  │  ├─ index-DHnrFb_Q.js
-│  │  │  │  └─ index-sQ7Fx-Ne.css
-│  │  │  ├─ favicon.svg
-│  │  │  ├─ icons.svg
-│  │  │  └─ index.html
 │  │  ├─ duka2_logs.txt
 │  │  ├─ eslint.config.js
 │  │  ├─ index.html
@@ -74,7 +66,6 @@ Duka2
 │  │  │  └─ theme.css
 │  │  └─ vite.config.js
 │  ├─ backend
-│  │  ├─ .env
 │  │  ├─ package-lock.json
 │  │  ├─ package.json
 │  │  └─ src
@@ -112,7 +103,6 @@ Duka2
 │  ├─ customer
 │  │  ├─ !o)}
 │  │  ├─ .vercel
-│  │  │  ├─ .env.preview.local
 │  │  │  ├─ builders
 │  │  │  │  ├─ package-lock.json
 │  │  │  │  └─ package.json
@@ -124,25 +114,6 @@ Duka2
 │  │  │  ├─ project.json
 │  │  │  └─ README.txt
 │  │  ├─ concurrently
-│  │  ├─ dist
-│  │  │  ├─ assets
-│  │  │  │  ├─ chipstix-DuYRbXwg.jpg
-│  │  │  │  ├─ herobg-CJFFJ40C.jpg
-│  │  │  │  ├─ index-CoKYFTs9.js
-│  │  │  │  ├─ index-DLIeKM6O.css
-│  │  │  │  ├─ krackles5-C7KsC3_8.jpg
-│  │  │  │  ├─ Kracles4-BccOABEt.jpg
-│  │  │  │  ├─ kripsii-bbq-CoJjVYrX.png
-│  │  │  │  ├─ kripsii-chilli-BMuYyuoQ.png
-│  │  │  │  ├─ kripsii-salted-qmqx6YO1.png
-│  │  │  │  ├─ kripsii-tomato-CzWwObV0.png
-│  │  │  │  ├─ ola1-nR0vCha_.jpg
-│  │  │  │  ├─ profile-CjTmI_rh.png
-│  │  │  │  ├─ ripples-BoR_LreB.png
-│  │  │  │  ├─ snacks1-CXkgTeLw.jpg
-│  │  │  │  └─ whatnotslogo-Bc2gyCN7.gif
-│  │  │  ├─ index.html
-│  │  │  └─ vite.svg
 │  │  ├─ duka2-preview@0.0.0
 │  │  ├─ eslint.config.js
 │  │  ├─ index.html

@@ -1,6 +1,7 @@
-const API_URL = "http://localhost:5000/api";
+import axios from "axios";
 
-export async function getProducts() {
-  const res = await fetch(`${API_URL}/products`);
-  return res.json();
-}
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL, // set this in env
+});
+
+export default api;

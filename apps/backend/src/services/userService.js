@@ -13,10 +13,83 @@ export async function getUserByPhone(phone) {
 }
 
 /* ===================== */
+/* GET ALL CUSTOMERS (WITH STATS) */
+/* ===================== */
+export async function getCustomers() {
+  const result = await pool.query(`
+    SELECT 
+      u.id,
+      u.phone,
+      u.first_name,
+      u.last_name,
+      u.role,
+      u.created_at,
+
+      COUNT(o.id) AS total_orders,
+      COALESCE(SUM(o.amount), 0) AS total_spent
+
+    FROM users u
+    LEFT JOIN orders o ON o.user_id = u.id
+    GROUP BY u.id
+    ORDER BY total_spent DESC;
+  `);
+
+  return result.rows;
+}
+
+/* ===================== */
+/* GET SINGLE CUSTOMER */
+/* ===================== */
+export async function getCustomerById(id) {
+  const result = await pool.query(
+    `
+    SELECT 
+      u.id,
+      u.phone,
+      u.first_name,
+      u.last_name,
+      u.role,
+      u.created_at,
+
+      COUNT(o.id) AS total_orders,
+      COALESCE(SUM(o.amount), 0) AS total_spent
+
+    FROM users u
+    LEFT JOIN orders o ON o.user_id = u.id
+    WHERE u.id = $1
+    GROUP BY u.id;
+    `,
+    [id]
+  );
+
+  return result.rows[0];
+}
+
+/* ===================== */
+/* GET CUSTOMER ORDERS */
+/* ===================== */
+export async function getCustomerOrders(id) {
+  const result = await pool.query(
+    `
+    SELECT 
+      id,
+      amount,
+      status,
+      created_at
+    FROM orders
+    WHERE user_id = $1
+    ORDER BY created_at DESC;
+    `,
+    [id]
+  );
+
+  return result.rows;
+}
+
+/* ===================== */
 /* UPDATE USER PIN */
 /* ===================== */
 export async function updateUserPin(phone, pin) {
-  // 🔥 Ensure pin is always hashed before saving
   const hashedPin = pin.startsWith("$2")
     ? pin
     : await bcrypt.hash(pin, 10);
@@ -52,7 +125,7 @@ export async function updateUserRole(phone, role) {
 }
 
 /* ===================== */
-/* CREATE USER (AUTO-HASH PIN) */
+/* CREATE USER */
 /* ===================== */
 export async function createUser(user) {
   const {
@@ -66,7 +139,6 @@ export async function createUser(user) {
     role = "user",
   } = user;
 
-  // 🔥 ALWAYS hash here (even if already hashed)
   const hashedPin = pin.startsWith("$2")
     ? pin
     : await bcrypt.hash(pin, 10);
