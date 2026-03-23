@@ -15,7 +15,6 @@ import { ensureSuperAdmin } from "./controllers/initAdmin.js";
 
 const app = express();
 
-await ensureSuperAdmin();
 
 app.use(cors({
   origin: "*", // for now (demo)
@@ -31,6 +30,16 @@ const logFile = path.join(__dirname, "duka2_logs.txt");
 
 app.use(cors());
 app.use(express.json());
+
+(async () => {
+  try {
+    await ensureSuperAdmin();
+    console.log("✅ Super admin ensured");
+  } catch (err) {
+    console.error("❌ Super admin init failed:", err.message);
+  }
+})();
+
 
 app.use("/api/users", loginRoutes);
 
