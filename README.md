@@ -39,24 +39,19 @@ Duka2
 │  │  │  ├─ pages
 │  │  │  │  ├─ Admin
 │  │  │  │  │  └─ ProductsAdmin.jsx
-│  │  │  │  ├─ Alerts.jsx
 │  │  │  │  ├─ Analytics.jsx
 │  │  │  │  ├─ Customers.css
 │  │  │  │  ├─ Customers.jsx
 │  │  │  │  ├─ Dashboard.jsx
-│  │  │  │  ├─ Dispatch.jsx
 │  │  │  │  ├─ Inventory.jsx
-│  │  │  │  ├─ LiveFeed.jsx
 │  │  │  │  ├─ login.css
 │  │  │  │  ├─ Login.jsx
-│  │  │  │  ├─ Network.jsx
 │  │  │  │  ├─ orders.css
 │  │  │  │  ├─ Orders.jsx
 │  │  │  │  ├─ page.css
 │  │  │  │  ├─ Placeholder.jsx
 │  │  │  │  ├─ products.css
 │  │  │  │  ├─ Products.jsx
-│  │  │  │  ├─ Reports.jsx
 │  │  │  │  ├─ Settings.jsx
 │  │  │  │  ├─ transactions.css
 │  │  │  │  ├─ Transactions.jsx
@@ -77,7 +72,8 @@ Duka2
 │  │     ├─ index.js
 │  │     ├─ middleware
 │  │     │  ├─ authMiddleware.js
-│  │     │  └─ ProtectedRoute.jsx
+│  │     │  ├─ ProtectedRoute.jsx
+│  │     │  └─ verifyToken.js
 │  │     ├─ modules
 │  │     │  ├─ orders
 │  │     │  │  ├─ orderController.js
@@ -91,6 +87,7 @@ Duka2
 │  │     │  ├─ adminRoutes.js
 │  │     │  ├─ loginRoutes.js
 │  │     │  ├─ productsRouter.js
+│  │     │  ├─ publicRoute.jsx
 │  │     │  └─ usersRouter.js
 │  │     ├─ scripts
 │  │     │  └─ seedAdmin.js
@@ -196,6 +193,7 @@ Duka2
 │  └─ database
 │     └─ schema.sql
 ├─ package-lock.json
+├─ package.json
 └─ README.md
 
 ```

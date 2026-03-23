@@ -11,46 +11,67 @@ import Customers from "./pages/Customers";
 import Transactions from "./pages/Transactions";
 import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
-import Reports from "./pages/Reports";
-import Network from "./pages/Network";
-import Alerts from "./pages/Alerts";
-import LiveFeed from "./pages/LiveFeed";
-import Dispatch from "./pages/Dispatch";
 import Inventory from "./pages/Inventory";
-
 
 import "./theme.css";
 
-export default function App() {
-  const [user, setUser] = useState(() => {
-    const savedUser = localStorage.getItem("duka2_current_user");
-    return savedUser ? JSON.parse(savedUser) : null;
-  });
+// 🔥 Initialize auth ONCE (no useEffect needed)
+const getInitialUser = () => {
+  const token = localStorage.getItem("duka2_token");
+  const savedUser = localStorage.getItem("duka2_current_user");
 
-  const handleLogin = (userData) => {
+  if (token && savedUser) {
+    try {
+      return JSON.parse(savedUser);
+    } catch (err) {
+      console.error("Invalid stored user:", err);
+      return null;
+    }
+  }
+
+  return null;
+};
+
+export default function App() {
+  const [user, setUser] = useState(getInitialUser);
+
+  const handleLogin = (userData, token) => {
     localStorage.setItem("duka2_current_user", JSON.stringify(userData));
+    localStorage.setItem("duka2_token", token);
     setUser(userData);
   };
 
   const handleLogout = () => {
     localStorage.removeItem("duka2_current_user");
+    localStorage.removeItem("duka2_token");
     setUser(null);
   };
 
   return (
     <Routes>
-      {/* LOGIN */}
-      <Route path="/login" element={<Login onLogin={handleLogin} />} />
 
-<Route
-  element={
-    user ? (
-      <AppLayout user={user} onLogout={handleLogout} />
-    ) : (
-      <Navigate to="/login" replace />
-    )
-  }
->
+      {/* LOGIN — BLOCK IF ALREADY LOGGED IN */}
+      <Route
+        path="/login"
+        element={
+          user ? (
+            <Navigate to="/" replace />
+          ) : (
+            <Login onLogin={handleLogin} />
+          )
+        }
+      />
+
+      {/* PROTECTED ROUTES */}
+      <Route
+        element={
+          user ? (
+            <AppLayout user={user} onLogout={handleLogout} />
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      >
         <Route path="/" element={<Dashboard user={user} />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/products" element={<Products />} />
@@ -67,7 +88,8 @@ export default function App() {
       </Route>
 
       {/* FALLBACK */}
-      <Route path="*" element={<Navigate to="/" />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+
     </Routes>
   );
 }
