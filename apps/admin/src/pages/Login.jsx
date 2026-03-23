@@ -32,49 +32,57 @@ export default function Login() {
   };
 
   // LOGIN
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+const handleLogin = async (e) => {
+  e.preventDefault();
+  setLoading(true);
 
-    const phone = normalizePhone(form.phone);
-    const API_URL = import.meta.env.VITE_API_URL;
+  const phone = normalizePhone(form.phone);
+  const API_URL = import.meta.env.VITE_API_URL;
 
+  try {
+    console.log("➡️ Sending login request to:", API_URL);
+
+    const res = await fetch(`${API_URL}/api/users/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ phone, pin: form.pin }),
+    });
+
+    console.log("⬅️ Response status:", res.status);
+
+    const text = await res.text();
+    console.log("⬅️ Raw response:", text);
+
+    let data;
     try {
-      const res = await fetch(`${API_URL}/api/users/login`, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-        body: JSON.stringify({
-          phone,
-          pin: form.pin,
-        }),
-      });
-
-      // SAFE PARSE (prevents JSON crash on 404)
-      const text = await res.text();
-      let data = {};
-      try {
-        data = text ? JSON.parse(text) : {};
-      } catch (err) {
-        console.error("Invalid JSON response:", text, err);
-      }
-
-      if (!res.ok) {
-        throw new Error(data.message || "Login failed");
-      }
-
-      localStorage.setItem("duka2_user", JSON.stringify(data.user));
-
-      navigate("/app/dashboard");
-
+      data = text ? JSON.parse(text) : {};
     } catch (err) {
-      console.error(err);
-      alert(err.message || "Login failed");
-    } finally {
-      setLoading(false);
+      console.error("❌ JSON parse failed:", err);
+      throw new Error("Invalid server response");
     }
-  };
+
+    if (!res.ok) {
+      console.error("❌ Login failed:", data);
+      throw new Error(data.message || `Login failed (${res.status})`);
+    }
+
+    console.log("✅ Login success:", data);
+
+    localStorage.setItem("duka2_current_user", JSON.stringify(data.user));
+
+    navigate("/");
+
+  } catch (err) {
+    console.error("🔥 LOGIN ERROR:", err);
+
+    alert(err.message || "Login failed — check console");
+
+  } finally {
+    setLoading(false);
+  }
+};
 
   // SPLASH UI
   if (loading) {
