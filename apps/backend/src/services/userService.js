@@ -45,23 +45,24 @@ export async function getAllUsers({ page = 1, limit = 20 }) {
 /* ===================== */
 /* GET CUSTOMER STATS (FOR /users/stats) */
 /* ===================== */
+/* ===================== */
+/* GET STATS */
+/* ===================== */
 export async function getUserStats() {
-  const result = await pool.query(`
+  const [[stats]] = await pool.query(`
     SELECT 
-      COUNT(*) AS total,
-      COUNT(CASE WHEN t.total_orders > 0 THEN 1 END) AS active,
-      COUNT(CASE WHEN u.created_at >= NOW() - INTERVAL '7 days' THEN 1 END) AS new,
+      COUNT(DISTINCT u.id) AS total,
+      COUNT(DISTINCT CASE WHEN o.id IS NOT NULL THEN u.id END) AS active,
       COALESCE(MAX(t.total_spent), 0) AS top_spender
-
     FROM users u
     LEFT JOIN (
       SELECT 
         user_id,
-        COUNT(*) AS total_orders,
         SUM(amount) AS total_spent
       FROM orders
       GROUP BY user_id
-    ) t ON t.user_id = u.id;
+    ) t ON t.user_id = u.id
+    LEFT JOIN orders o ON o.user_id = u.id
   `);
 
   return result.rows[0];

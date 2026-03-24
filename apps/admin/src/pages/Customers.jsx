@@ -88,8 +88,7 @@ useEffect(() => {
       <div className="stats">
         <Stat label="Customers" value={stats?.total} />
         <Stat label="Active" value={stats?.active} />
-        <Stat label="New" value={stats?.new} />
-        <Stat label="Top Spender" value={`KES ${stats?.top_spender ?? "--"}`} />
+        <Stat label="Top Spender" value={`KES ${stats?.top_spender ?? 0}`} />
       </div>
 
       {/* ===== CONTROLS ===== */}
