@@ -1,14 +1,16 @@
 /* =========================
-   PAGE WRAPPER (MATCH DASHBOARD)
+   LAYOUT (MATCH ORDERS)
 ========================= */
 .customers-page {
   padding: 20px 30px;
   color: var(--text-main);
+  margin-left: 90px; /* match sidebar */
+  width: calc(100% - 90px);
   box-sizing: border-box;
 }
 
 /* =========================
-   STATS (MATCH KPI STYLE)
+   STATS (KPI STYLE – CLEAN)
 ========================= */
 .stats {
   display: grid;
@@ -22,19 +24,19 @@
   border-radius: 12px;
   background: var(--panel);
   border: 1px solid var(--grey-border);
-  box-shadow: 0 6px 20px var(--shadow);
-  transition: 0.3s;
+  box-shadow: 0 8px 25px var(--shadow);
+  transition: 0.2s;
 }
 
 .stat:hover {
-  transform: translateY(-4px);
+  transform: translateY(-3px);
   border-color: var(--orange-main);
 }
 
 .stat span {
   font-size: 11px;
   color: var(--text-light);
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
 }
 
 .stat strong {
@@ -45,7 +47,7 @@
 }
 
 /* =========================
-   CONTROLS (MATCH HEADER INPUT STYLE)
+   CONTROLS (MATCH FILTER STYLE)
 ========================= */
 .controls {
   display: flex;
@@ -62,6 +64,7 @@
   color: var(--text-main);
   font-size: 13px;
   outline: none;
+  transition: 0.2s;
 }
 
 .controls input:focus,
@@ -70,9 +73,10 @@
 }
 
 /* =========================
-   TABLE (MATCH ORDERS STYLE)
+   TABLE (MATCH ORDERS EXACTLY)
 ========================= */
 .table {
+  margin-top: 20px;
   background: var(--panel);
   border: 1px solid var(--grey-border);
   border-radius: 12px;
@@ -80,31 +84,33 @@
   box-shadow: 0 8px 25px var(--shadow);
 }
 
-/* HEADER + ROW */
+/* ROWS */
 .row {
   display: grid;
   grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1fr 1fr;
-  padding: 14px 16px;
   align-items: center;
+  padding: 14px 16px;
   border-bottom: 1px solid var(--grey-border);
   transition: 0.2s;
+  font-size: 14px;
 }
 
+/* HEADER */
 .row.header {
-  background: rgba(0,0,0,0.03);
+  background: rgba(0, 0, 0, 0.03);
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: var(--text-light);
 }
 
-/* HOVER (MATCH ORDERS) */
+/* HOVER */
 .row:hover {
-  background: rgba(255,138,0,0.05);
+  background: rgba(255, 138, 0, 0.05);
 }
 
 /* =========================
-   BUTTONS (MATCH GLOBAL)
+   BUTTONS (UNIFIED)
 ========================= */
 .table button {
   padding: 6px 10px;
@@ -124,34 +130,34 @@
 }
 
 /* =========================
-   STATUS (UNIFIED SYSTEM)
+   STATUS (UNIFIED STYLE)
 ========================= */
 .status {
   padding: 5px 10px;
   border-radius: 20px;
   font-size: 11px;
-  border: 1px solid var(--grey-border);
   display: inline-block;
+  border: 1px solid var(--grey-border);
 }
 
-/* CUSTOMER STATUS STATES */
+/* STATES */
 .status.active {
   color: #4caf50;
-  border-color: rgba(76,175,80,0.4);
+  border-color: rgba(76, 175, 80, 0.4);
 }
 
 .status.normal {
   color: #03a9f4;
-  border-color: rgba(3,169,244,0.4);
+  border-color: rgba(3, 169, 244, 0.4);
 }
 
 .status.inactive {
   color: #f44336;
-  border-color: rgba(244,67,54,0.4);
+  border-color: rgba(244, 67, 54, 0.4);
 }
 
 /* =========================
-   EMPTY / LOADING
+   EMPTY STATE
 ========================= */
 .empty {
   padding: 20px;
@@ -184,7 +190,7 @@
 }
 
 /* =========================
-   DRAWER (MATCH PANEL STYLE)
+   DRAWER (MATCH PANEL)
 ========================= */
 .drawer {
   margin-top: 20px;
@@ -193,13 +199,27 @@
   background: var(--panel);
   border: 1px solid var(--grey-border);
   box-shadow: 0 10px 30px var(--shadow);
-  animation: fadeIn 0.3s ease;
+  animation: fadeIn 0.25s ease;
 }
 
 .drawer-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 10px;
+}
+
+.drawer-header button {
+  border: 1px solid var(--grey-border);
+  background: transparent;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.drawer-header button:hover {
+  border-color: var(--orange-main);
+  color: var(--orange-main);
 }
 
 .drawer-body p {
@@ -207,15 +227,17 @@
   font-size: 14px;
 }
 
-.drawer .order {
+/* ORDERS INSIDE DRAWER */
+.order {
   display: flex;
   justify-content: space-between;
   padding: 8px 0;
   border-bottom: 1px solid var(--grey-border);
+  font-size: 13px;
 }
 
 /* =========================
-   ANIMATION (CONSISTENCY)
+   ANIMATION
 ========================= */
 @keyframes fadeIn {
   from {
@@ -225,5 +247,34 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* =========================
+   RESPONSIVE (MATCH SYSTEM)
+========================= */
+@media (max-width: 1024px) {
+  .customers-page {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .row {
+    grid-template-columns: 1fr 1.5fr 1fr 1fr;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .controls {
+    flex-direction: column;
   }
 }
