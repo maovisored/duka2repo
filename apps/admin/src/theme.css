@@ -670,6 +670,43 @@ body.dark .kpi {
   color: var(--orange-main);
 }
 
+
+/* =========================
+   GLOBAL SCROLLBAR STYLE
+========================= */
+
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f5f5f5; /* light neutral background */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cfcfcf;
+  border-radius: 10px;
+  border: 2px solid #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b5b5b5;
+}
+
+/* =========================
+   FIREFOX
+========================= */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #cfcfcf #f5f5f5;
+}
+
+
+
+
+
 /* =========================
    ANIMATIONS
 ========================= */

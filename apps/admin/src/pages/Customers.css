@@ -1,16 +1,86 @@
 /* =========================
-   LAYOUT (MATCH ORDERS)
+   LAYOUT (STRICT ALIGNMENT)
 ========================= */
 .customers-page {
   padding: 20px 30px;
   color: var(--text-main);
-  margin-left: 90px; /* match sidebar */
+  margin-left: 90px;
   width: calc(100% - 90px);
   box-sizing: border-box;
 }
 
 /* =========================
-   STATS (KPI STYLE – CLEAN)
+   HEADER (LIKE ORDERS)
+========================= */
+.customers-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.customers-header h2 {
+  font-size: 22px;
+  font-family: "Titillium Web", sans-serif;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* =========================
+   BUTTON SYSTEM (IMPORTANT)
+========================= */
+.btn {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--grey-border);
+  background: transparent;
+  color: var(--text-main);
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn:hover {
+  border-color: var(--orange-main);
+  color: var(--orange-main);
+  transform: translateY(-1px);
+}
+
+/* PRIMARY */
+.btn.primary {
+  background: var(--orange-main);
+  border-color: var(--orange-main);
+  color: #fff;
+}
+
+.btn.primary:hover {
+  background: #e67700;
+}
+
+/* DANGER */
+.btn.danger {
+  border-color: #f44336;
+  color: #f44336;
+}
+
+.btn.danger:hover {
+  background: #f44336;
+  color: #fff;
+}
+
+/* ICON BUTTON */
+.btn.icon {
+  padding: 6px 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================
+   STATS
 ========================= */
 .stats {
   display: grid;
@@ -36,18 +106,16 @@
 .stat span {
   font-size: 11px;
   color: var(--text-light);
-  letter-spacing: 0.5px;
 }
 
 .stat strong {
   display: block;
   margin-top: 6px;
   font-size: 20px;
-  font-family: "Titillium Web", sans-serif;
 }
 
 /* =========================
-   CONTROLS (MATCH FILTER STYLE)
+   CONTROLS (UPGRADED)
 ========================= */
 .controls {
   display: flex;
@@ -64,7 +132,6 @@
   color: var(--text-main);
   font-size: 13px;
   outline: none;
-  transition: 0.2s;
 }
 
 .controls input:focus,
@@ -73,7 +140,7 @@
 }
 
 /* =========================
-   TABLE (MATCH ORDERS EXACTLY)
+   TABLE
 ========================= */
 .table {
   margin-top: 20px;
@@ -92,55 +159,42 @@
   padding: 14px 16px;
   border-bottom: 1px solid var(--grey-border);
   transition: 0.2s;
-  font-size: 14px;
 }
 
-/* HEADER */
 .row.header {
   background: rgba(0, 0, 0, 0.03);
   font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
   color: var(--text-light);
 }
 
-/* HOVER */
 .row:hover {
   background: rgba(255, 138, 0, 0.05);
 }
 
 /* =========================
-   BUTTONS (UNIFIED)
+   TABLE ACTIONS (NEW)
 ========================= */
-.table button {
-  padding: 6px 10px;
-  border-radius: 6px;
-  border: 1px solid var(--grey-border);
-  background: transparent;
-  color: var(--text-main);
-  font-size: 12px;
-  cursor: pointer;
-  transition: 0.2s;
+.actions {
+  display: flex;
+  gap: 6px;
 }
 
-.table button:hover {
-  border-color: var(--orange-main);
-  color: var(--orange-main);
-  transform: translateY(-1px);
+.actions .btn {
+  padding: 6px 8px;
+  font-size: 12px;
 }
 
 /* =========================
-   STATUS (UNIFIED STYLE)
+   STATUS
 ========================= */
 .status {
   padding: 5px 10px;
   border-radius: 20px;
   font-size: 11px;
-  display: inline-block;
   border: 1px solid var(--grey-border);
 }
 
-/* STATES */
 .status.active {
   color: #4caf50;
   border-color: rgba(76, 175, 80, 0.4);
@@ -157,10 +211,26 @@
 }
 
 /* =========================
-   EMPTY STATE
+   LOADING (REAL UX)
+========================= */
+.skeleton {
+  height: 14px;
+  background: linear-gradient(90deg, #eee, #ddd, #eee);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
+  border-radius: 6px;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* =========================
+   EMPTY STATE (FIXED)
 ========================= */
 .empty {
-  padding: 20px;
+  padding: 40px;
   text-align: center;
   color: var(--text-light);
 }
@@ -175,22 +245,8 @@
   gap: 10px;
 }
 
-.pagination button {
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: 1px solid var(--grey-border);
-  background: transparent;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.pagination button:hover {
-  border-color: var(--orange-main);
-  color: var(--orange-main);
-}
-
 /* =========================
-   DRAWER (MATCH PANEL)
+   DRAWER (UPGRADED)
 ========================= */
 .drawer {
   margin-top: 20px;
@@ -199,59 +255,37 @@
   background: var(--panel);
   border: 1px solid var(--grey-border);
   box-shadow: 0 10px 30px var(--shadow);
-  animation: fadeIn 0.25s ease;
 }
 
 .drawer-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
 }
 
-.drawer-header button {
-  border: 1px solid var(--grey-border);
-  background: transparent;
-  padding: 6px 10px;
-  border-radius: 6px;
-  cursor: pointer;
+.drawer-body {
+  margin-top: 10px;
 }
 
-.drawer-header button:hover {
-  border-color: var(--orange-main);
-  color: var(--orange-main);
-}
-
-.drawer-body p {
-  margin-bottom: 6px;
-  font-size: 14px;
-}
-
-/* ORDERS INSIDE DRAWER */
-.order {
+/* DRAWER ACTIONS */
+.drawer-actions {
+  margin-top: 15px;
   display: flex;
-  justify-content: space-between;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--grey-border);
-  font-size: 13px;
+  gap: 10px;
 }
 
 /* =========================
-   ANIMATION
+   FOCUS STATES (IMPORTANT)
 ========================= */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+button:focus,
+input:focus,
+select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 138, 0, 0.25);
 }
 
 /* =========================
-   RESPONSIVE (MATCH SYSTEM)
+   RESPONSIVE
 ========================= */
 @media (max-width: 1024px) {
   .customers-page {
@@ -260,7 +294,7 @@
   }
 
   .row {
-    grid-template-columns: 1fr 1.5fr 1fr 1fr;
+    grid-template-columns: 1fr 1.2fr 1fr 1fr;
   }
 
   .stats {
