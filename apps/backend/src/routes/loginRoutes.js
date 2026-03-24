@@ -5,6 +5,15 @@ import { generateToken } from "../controllers/auth.js";
 
 const router = express.Router();
 
+function normalizePhone(phone) {
+  let p = phone.replace(/\D/g, "");
+
+  if (p.startsWith("0")) p = "254" + p.substring(1);
+  if (!p.startsWith("254")) p = "254" + p;
+
+  return p;
+}
+
 /* ===================== */
 /* LOGIN */
 /* ===================== */
