@@ -62,6 +62,16 @@ export default function Customers() {
     fetchStats();
   }, [fetchCustomers, fetchStats]);
 
+  // auto refresh every 20 seconds
+useEffect(() => {
+  const interval = setInterval(() => {
+    fetchCustomers();
+    fetchStats();
+  }, 20000);
+
+  return () => clearInterval(interval);
+}, [fetchCustomers, fetchStats]);
+
   // ================= FILTER =================
   const filtered = customers
     .filter((c) => (c.phone || "").toLowerCase().includes(search.toLowerCase()))
