@@ -13,13 +13,29 @@ export default function Footer() {
 
   return (
     <footer className="app-footer">
-      <div>
-        {time.toLocaleDateString()} · {time.toLocaleTimeString()}
+      {/* LEFT */}
+      <div className="footer-left">
+        <div className="footer-time">
+          {time.toLocaleDateString()} · {time.toLocaleTimeString()}
+        </div>
       </div>
 
-      <div>
-        <p>Made by AnteDot Africa</p>
-          <span>© {new Date().getFullYear()} </span>
+      {/* CENTER */}
+      <div className="footer-center">
+        <span className="footer-brand">AnteDot Africa</span>
+      </div>
+
+      {/* RIGHT */}
+      <div className="footer-right">
+        <div className="footer-links">
+          <a href="#">Privacy</a>
+          <span>·</span>
+          <a href="#">Terms</a>
+        </div>
+
+        <span className="footer-meta">
+          © {new Date().getFullYear()}
+        </span>
       </div>
     </footer>
   );
