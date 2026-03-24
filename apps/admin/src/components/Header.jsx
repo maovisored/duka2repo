@@ -64,7 +64,7 @@ export default function Header({ user, onLogout }) {
 
         {/* User */}
         <div className="user-info">
-          <span className="user-name">{user?.name || "Admin"}</span>
+          <span className="user-name">{user?.name || ""}</span>
         </div>
 
       </div>
