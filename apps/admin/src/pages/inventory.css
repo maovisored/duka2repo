@@ -1,0 +1,230 @@
+/* =========================
+   PAGE LAYOUT (MATCH SYSTEM)
+========================= */
+.inventory-page {
+  padding: 20px 30px;
+  margin-left: 90px;
+  width: calc(100% - 90px);
+  color: var(--text-main);
+  box-sizing: border-box;
+}
+
+/* =========================
+   HEADER
+========================= */
+.inventory-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.inventory-header h2 {
+  font-size: 22px;
+  font-family: "Titillium Web", sans-serif;
+}
+
+/* =========================
+   FILTERS (REUSE SYSTEM)
+========================= */
+.filters {
+  display: flex;
+  gap: 10px;
+}
+
+.filters input,
+.filters select {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--grey-border);
+  background: var(--panel);
+  color: var(--text-main);
+  font-size: 13px;
+  outline: none;
+}
+
+.filters input:focus,
+.filters select:focus {
+  border-color: var(--orange-main);
+}
+
+/* =========================
+   TABLE
+========================= */
+.inventory-table {
+  margin-top: 20px;
+  background: var(--panel);
+  border: 1px solid var(--grey-border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px var(--shadow);
+}
+
+.table-header,
+.table-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+  padding: 14px 16px;
+  align-items: center;
+}
+
+.table-header {
+  background: rgba(0,0,0,0.03);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-light);
+  border-bottom: 1px solid var(--grey-border);
+}
+
+.table-row {
+  border-bottom: 1px solid var(--grey-border);
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.table-row:hover {
+  background: rgba(255,138,0,0.05);
+}
+
+/* =========================
+   STATUS
+========================= */
+.status {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  border: 1px solid var(--grey-border);
+  text-align: center;
+}
+
+/* STATES */
+.status.in {
+  color: #4caf50;
+}
+
+.status.low {
+  color: #ff9800;
+}
+
+.status.out {
+  color: #f44336;
+}
+
+/* =========================
+   ACTIONS
+========================= */
+.actions {
+  display: flex;
+  gap: 6px;
+}
+
+.actions button {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--grey-border);
+  background: transparent;
+  color: var(--text-main);
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.actions button:hover {
+  border-color: var(--orange-main);
+  color: var(--orange-main);
+  transform: translateY(-1px);
+}
+
+/* =========================
+   DETAILS PANEL (MATCH ORDERS)
+========================= */
+.inventory-details {
+  margin-top: 20px;
+  padding: 20px;
+  background: var(--panel);
+  border: 1px solid var(--grey-border);
+  border-radius: 12px;
+  box-shadow: 0 8px 25px var(--shadow);
+  animation: fadeIn 0.25s ease;
+}
+
+.inventory-details h3 {
+  margin-bottom: 10px;
+}
+
+/* =========================
+   MOVEMENTS (LIKE MINI TRANSACTIONS)
+========================= */
+.movement {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--grey-border);
+  font-size: 13px;
+}
+
+/* TYPES */
+.type {
+  font-weight: 600;
+}
+
+.type.in {
+  color: #4caf50;
+}
+
+.type.out {
+  color: #f44336;
+}
+
+/* =========================
+   ANIMATION
+========================= */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+  .inventory-page {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .table-header,
+  .table-row {
+    grid-template-columns: 1fr 1.5fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .table-header,
+  .table-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .inventory-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .filters {
+    width: 100%;
+  }
+
+  .filters input,
+  .filters select {
+    width: 100%;
+  }
+}
