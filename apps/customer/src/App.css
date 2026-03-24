@@ -76,6 +76,7 @@ body {
   background: var(--bg);
   color: var(--text-main);
   transition: background 0.3s, color 0.3s;
+  width: 100%;
 }
 
 button,
