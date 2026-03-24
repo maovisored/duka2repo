@@ -1,95 +1,78 @@
 /* =========================
-   PAGE LAYOUT (MATCH SYSTEM)
+   PAGE WRAPPER (MATCH DASHBOARD)
 ========================= */
 .customers-page {
   padding: 20px 30px;
   color: var(--text-main);
-  margin-left: 90px;
-  width: calc(100% - 90px);
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
 }
 
 /* =========================
-   HEADER
+   STATS (MATCH KPI STYLE)
 ========================= */
-.customers-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.customers-header h2 {
-  font-size: 22px;
-  font-family: "Titillium Web", sans-serif;
-  letter-spacing: 0.5px;
-}
-
-/* =========================
-   STATS CARDS (NEW)
-========================= */
-.customer-stats {
+.stats {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 20px;
 }
 
-.stat-card {
+.stat {
+  padding: 18px;
+  border-radius: 12px;
   background: var(--panel);
   border: 1px solid var(--grey-border);
-  border-radius: 12px;
-  padding: 14px;
   box-shadow: 0 6px 20px var(--shadow);
-  transition: 0.25s;
+  transition: 0.3s;
 }
 
-.stat-card:hover {
+.stat:hover {
+  transform: translateY(-4px);
   border-color: var(--orange-main);
-  transform: translateY(-2px);
 }
 
-.stat-title {
+.stat span {
   font-size: 11px;
   color: var(--text-light);
-  margin-bottom: 6px;
+  letter-spacing: 1px;
 }
 
-.stat-value {
-  font-size: 18px;
-  font-weight: 600;
+.stat strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 20px;
+  font-family: "Titillium Web", sans-serif;
 }
 
 /* =========================
-   FILTERS
+   CONTROLS (MATCH HEADER INPUT STYLE)
 ========================= */
-.filters {
+.controls {
   display: flex;
   gap: 10px;
-  flex-wrap: wrap;
+  margin-bottom: 20px;
 }
 
-.filters input,
-.filters select {
+.controls input,
+.controls select {
   padding: 10px 12px;
   border-radius: 8px;
   border: 1px solid var(--grey-border);
   background: var(--panel);
   color: var(--text-main);
-  outline: none;
   font-size: 13px;
+  outline: none;
 }
 
-.filters input:focus,
-.filters select:focus {
+.controls input:focus,
+.controls select:focus {
   border-color: var(--orange-main);
 }
 
 /* =========================
-   TABLE WRAPPER
+   TABLE (MATCH ORDERS STYLE)
 ========================= */
-.customers-table {
+.table {
   background: var(--panel);
   border: 1px solid var(--grey-border);
   border-radius: 12px;
@@ -97,38 +80,51 @@
   box-shadow: 0 8px 25px var(--shadow);
 }
 
-/* =========================
-   TABLE GRID
-========================= */
-.table-header,
-.table-row {
+/* HEADER + ROW */
+.row {
   display: grid;
-  grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr 1fr;
-  align-items: center;
+  grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1fr 1fr;
   padding: 14px 16px;
-}
-
-.table-header {
-  background: rgba(0, 0, 0, 0.05);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-  color: var(--text-light);
+  align-items: center;
   border-bottom: 1px solid var(--grey-border);
-}
-
-.table-row {
-  border-bottom: 1px solid var(--grey-border);
-  font-size: 14px;
   transition: 0.2s;
 }
 
-.table-row:hover {
-  background: rgba(255, 138, 0, 0.06);
+.row.header {
+  background: rgba(0,0,0,0.03);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-light);
+}
+
+/* HOVER (MATCH ORDERS) */
+.row:hover {
+  background: rgba(255,138,0,0.05);
 }
 
 /* =========================
-   STATUS
+   BUTTONS (MATCH GLOBAL)
+========================= */
+.table button {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--grey-border);
+  background: transparent;
+  color: var(--text-main);
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.table button:hover {
+  border-color: var(--orange-main);
+  color: var(--orange-main);
+  transform: translateY(-1px);
+}
+
+/* =========================
+   STATUS (UNIFIED SYSTEM)
 ========================= */
 .status {
   padding: 5px 10px;
@@ -136,245 +132,98 @@
   font-size: 11px;
   border: 1px solid var(--grey-border);
   display: inline-block;
-  text-align: center;
-  width: fit-content;
 }
 
+/* CUSTOMER STATUS STATES */
 .status.active {
   color: #4caf50;
-  border-color: #4caf50;
+  border-color: rgba(76,175,80,0.4);
+}
+
+.status.normal {
+  color: #03a9f4;
+  border-color: rgba(3,169,244,0.4);
 }
 
 .status.inactive {
   color: #f44336;
-  border-color: #f44336;
+  border-color: rgba(244,67,54,0.4);
 }
 
 /* =========================
-   ACTIONS
+   EMPTY / LOADING
 ========================= */
-.actions {
-  display: flex;
-  gap: 6px;
-}
-
-.actions button {
-  padding: 6px 10px;
-  border-radius: 6px;
-  border: 1px solid var(--grey-border);
-  background: transparent;
-  color: var(--text-main);
-  font-size: 12px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.actions button:hover {
-  border-color: var(--orange-main);
-  color: var(--orange-main);
-  transform: translateY(-1px);
-}
-
-/* =========================
-   EMPTY STATE (NEW)
-========================= */
-.empty-state {
-  padding: 30px;
-  text-align: center;
-  color: var(--text-light);
-  font-size: 14px;
-}
-
-/* =========================
-   LOADING STATE (NEW)
-========================= */
-.loading {
-  padding: 30px;
-  text-align: center;
-  font-size: 14px;
-  opacity: 0.7;
-}
-
-/* =========================
-   EXPANDED VIEW (UPGRADED)
-========================= */
-.customer-details {
+.empty {
   padding: 20px;
-  background: var(--panel);
-  border: 1px solid var(--grey-border);
-  border-radius: 12px;
-  box-shadow: 0 8px 25px var(--shadow);
-  animation: fadeIn 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.customer-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.customer-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-/* =========================
-   DETAIL GRID (NEW)
-========================= */
-.customer-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-
-.customer-box {
-  padding: 12px;
-  border: 1px solid var(--grey-border);
-  border-radius: 8px;
-  background: rgba(0,0,0,0.03);
-}
-
-.customer-box span {
-  display: block;
-  font-size: 11px;
+  text-align: center;
   color: var(--text-light);
 }
 
-.customer-box strong {
-  font-size: 14px;
-}
-
 /* =========================
-   ORDER CARDS
+   PAGINATION
 ========================= */
-.order-card {
+.pagination {
+  margin-top: 15px;
   display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  border: 1px solid var(--grey-border);
-  border-radius: 8px;
-  margin-top: 8px;
-  background: rgba(0,0,0,0.02);
-  font-size: 13px;
-}
-
-/* =========================
-   DETAIL ACTIONS
-========================= */
-.detail-actions {
-  display: flex;
+  justify-content: center;
   gap: 10px;
-  flex-wrap: wrap;
 }
 
-.detail-actions button {
+.pagination button {
   padding: 8px 12px;
   border-radius: 6px;
   border: 1px solid var(--grey-border);
   background: transparent;
-  color: var(--text-main);
   cursor: pointer;
   transition: 0.2s;
 }
 
-.detail-actions button:hover {
+.pagination button:hover {
   border-color: var(--orange-main);
   color: var(--orange-main);
 }
 
-.detail-actions .danger {
-  border-color: #f44336;
-  color: #f44336;
-}
-
-.detail-actions .danger:hover {
-  background: #f44336;
-  color: #fff;
-}
-
 /* =========================
-   PAGINATION (NEW)
+   DRAWER (MATCH PANEL STYLE)
 ========================= */
-.pagination {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-}
-
-.pagination button {
-  padding: 6px 10px;
-  border-radius: 6px;
+.drawer {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 12px;
+  background: var(--panel);
   border: 1px solid var(--grey-border);
-  background: transparent;
-  cursor: pointer;
-  font-size: 12px;
+  box-shadow: 0 10px 30px var(--shadow);
+  animation: fadeIn 0.3s ease;
 }
 
-.pagination button.active {
-  border-color: var(--orange-main);
-  color: var(--orange-main);
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.drawer-body p {
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.drawer .order {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--grey-border);
 }
 
 /* =========================
-   ANIMATIONS
+   ANIMATION (CONSISTENCY)
 ========================= */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 1024px) {
-  .customers-page {
-    margin-left: 0;
-    width: 100%;
-  }
-
-  .customer-stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .table-header,
-  .table-row {
-    grid-template-columns: 1fr 1.5fr 1fr 1fr;
-  }
-
-  .customer-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 768px) {
-  .table-header,
-  .table-row {
-    grid-template-columns: 1fr;
-    gap: 6px;
-  }
-
-  .customers-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .filters {
-    width: 100%;
-  }
-
-  .filters input,
-  .filters select {
-    width: 100%;
   }
 }
