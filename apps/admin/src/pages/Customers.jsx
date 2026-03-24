@@ -77,7 +77,6 @@ export default function Customers() {
   return (
     <div className="page">
       <div className="page-header">
-        <h2 className="page-title">Customers</h2>
       </div>
 
       {/* STATS */}

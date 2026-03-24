@@ -36,7 +36,7 @@ export default function Products() {
     },
     {
       id: 2,
-      name: "Test Product",
+      name: "Jripsii - Salted",
       category: "General",
       active: false,
       variations: []

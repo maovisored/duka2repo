@@ -29,6 +29,7 @@ body.dark {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 60%;
 
   padding: 12px 14px;
   border-top: 1px solid var(--grey-border);
