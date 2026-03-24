@@ -1,5 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import "../App.css";
+
 
 export default function Header({ user, onLogout }) {
   const location = useLocation();
