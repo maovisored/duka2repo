@@ -18,7 +18,8 @@ export default function Footer() {
       </div>
 
       <div>
-        Made by <strong>ANTED</strong> © {new Date().getFullYear()}
+        <p>Made by AnteDot Africa</p>
+          <span>© {new Date().getFullYear()} </span>
       </div>
     </footer>
   );
