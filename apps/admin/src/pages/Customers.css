@@ -10,28 +10,29 @@
 }
 
 /* =========================
-   HEADER (LIKE ORDERS)
+   FILTERS (same as Orders)
 ========================= */
-.customers-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 18px;
-}
-
-.customers-header h2 {
-  font-size: 22px;
-  font-family: "Titillium Web", sans-serif;
-}
-
-.header-actions {
+.filters {
   display: flex;
   gap: 10px;
 }
 
-/* =========================
-   BUTTON SYSTEM (IMPORTANT)
-========================= */
+.filters input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--grey-border);
+  background: var(--panel);
+  color: var(--text-main);
+  outline: none;
+  font-size: 13px;
+}
+
+.filters input:focus {
+  border-color: var(--orange-main);
+}
+
+
+
 /* =========================
    ACTION BUTTONS (MATCH ORDERS)
 ========================= */

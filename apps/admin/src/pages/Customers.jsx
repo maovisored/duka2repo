@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import api from "../api/client";
+import "../App.css";
 import "./Customers.css";
 
 export default function Customers() {
