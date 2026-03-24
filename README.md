@@ -27,6 +27,10 @@ Duka2
 │  │  │  │  ├─ react.svg
 │  │  │  │  └─ vite.svg
 │  │  │  ├─ components
+│  │  │  │  ├─ footer.css
+│  │  │  │  ├─ Footer.jsx
+│  │  │  │  ├─ header.css
+│  │  │  │  ├─ Header.jsx
 │  │  │  │  ├─ sidebar.css
 │  │  │  │  └─ Sidebar.jsx
 │  │  │  ├─ index.css
@@ -39,10 +43,12 @@ Duka2
 │  │  │  ├─ pages
 │  │  │  │  ├─ Admin
 │  │  │  │  │  └─ ProductsAdmin.jsx
+│  │  │  │  ├─ analytics.css
 │  │  │  │  ├─ Analytics.jsx
 │  │  │  │  ├─ Customers.css
 │  │  │  │  ├─ Customers.jsx
 │  │  │  │  ├─ Dashboard.jsx
+│  │  │  │  ├─ inventory.css
 │  │  │  │  ├─ Inventory.jsx
 │  │  │  │  ├─ login.css
 │  │  │  │  ├─ Login.jsx
@@ -52,11 +58,13 @@ Duka2
 │  │  │  │  ├─ Placeholder.jsx
 │  │  │  │  ├─ products.css
 │  │  │  │  ├─ Products.jsx
+│  │  │  │  ├─ settings.css
 │  │  │  │  ├─ Settings.jsx
 │  │  │  │  ├─ transactions.css
 │  │  │  │  ├─ Transactions.jsx
 │  │  │  │  └─ Users.jsx
 │  │  │  └─ theme.css
+│  │  ├─ vercel.json
 │  │  ├─ vite.config.js
 │  │  └─ {
 │  ├─ backend
@@ -166,6 +174,7 @@ Duka2
 │  │  │  ├─ layouts
 │  │  │  ├─ main.jsx
 │  │  │  ├─ pages
+│  │  │  │  ├─ analytics.css
 │  │  │  │  ├─ Analytics.jsx
 │  │  │  │  ├─ Cart.css
 │  │  │  │  ├─ Cart.jsx
