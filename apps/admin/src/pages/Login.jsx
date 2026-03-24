@@ -13,26 +13,41 @@ export default function Login() {
     pin: "",
   });
 
+  /* ===================== */
+  /* REDIRECT IF LOGGED IN */
+  /* ===================== */
   useEffect(() => {
-  const token = localStorage.getItem("duka2_token");
-  if (token) {
+    try {
+      const token = localStorage.getItem("duka2_token");
+      const user = JSON.parse(localStorage.getItem("duka2_current_user"));
 
-navigate("/", { replace: true });
+      if (token && user) {
+        navigate("/", { replace: true });
+      }
+    } catch {
+      // invalid JSON → ignore
+    }
+  }, [navigate]);
 
-  }
-}, []);
-
-  // SPLASH
+  /* ===================== */
+  /* SPLASH */
+  /* ===================== */
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1000);
+    const timer = setTimeout(() => setLoading(false), 800); // slightly faster
     return () => clearTimeout(timer);
   }, []);
 
+  /* ===================== */
+  /* INPUT HANDLER */
+  /* ===================== */
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
+  /* ===================== */
+  /* PHONE NORMALIZER */
+  /* ===================== */
   const normalizePhone = (phone) => {
     let p = phone.replace(/\D/g, "");
     if (p.startsWith("0")) p = "254" + p.slice(1);
@@ -40,45 +55,52 @@ navigate("/", { replace: true });
     return p;
   };
 
-  // LOGIN
-const handleLogin = async (e) => {
-  e.preventDefault();
+  /* ===================== */
+  /* LOGIN */
+  /* ===================== */
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-  if (loading) return;
+    if (loading) return; // 🔒 prevent double submit
 
-  setLoading(true);
+    setLoading(true);
 
-  const phone = normalizePhone(form.phone);
-  const API_URL = import.meta.env.VITE_API_URL;
+    const phone = normalizePhone(form.phone);
+    const API_URL = import.meta.env.VITE_API_URL;
 
-  try {
-    const res = await fetch(`${API_URL}/api/users/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ phone, pin: form.pin }),
-    });
+    try {
+      const res = await fetch(`${API_URL}/api/users/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ phone, pin: form.pin }),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (!res.ok) {
-      throw new Error(data.message || "Login failed");
+      if (!res.ok) {
+        throw new Error(data.message || "Login failed");
+      }
+
+      // 💾 Save auth
+      localStorage.setItem("duka2_current_user", JSON.stringify(data.user));
+      localStorage.setItem("duka2_token", data.token);
+
+      // 🚀 Redirect once (no loop)
+      navigate("/", { replace: true });
+
+    } catch (err) {
+      console.error("LOGIN ERROR:", err);
+      alert(err.message || "Login failed");
+    } finally {
+      setLoading(false);
     }
+  };
 
-    localStorage.setItem("duka2_current_user", JSON.stringify(data.user));
-    localStorage.setItem("duka2_token", data.token);
-
-    navigate("/", { replace: true });
-
-  } catch (err) {
-    alert(err.message || "Login failed");
-  } finally {
-    setLoading(false);
-  }
-};
-
-  // SPLASH UI
+  /* ===================== */
+  /* SPLASH UI */
+  /* ===================== */
   if (loading) {
     return (
       <div className="splash-screen">
@@ -90,6 +112,9 @@ const handleLogin = async (e) => {
     );
   }
 
+  /* ===================== */
+  /* MAIN UI */
+  /* ===================== */
   return (
     <div className="login-container">
       <div className="login-card">
