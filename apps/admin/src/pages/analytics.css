@@ -1,0 +1,197 @@
+/* =========================
+   PAGE LAYOUT (MATCH SYSTEM)
+========================= */
+.analytics-page {
+  padding: 20px 30px;
+  margin-left: 90px;
+  width: calc(100% - 90px);
+  box-sizing: border-box;
+  color: var(--text-main);
+}
+
+/* =========================
+   HEADER
+========================= */
+.analytics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.analytics-header h2 {
+  font-size: 22px;
+  font-family: "Titillium Web", sans-serif;
+}
+
+/* =========================
+   FILTERS (REUSE SYSTEM)
+========================= */
+.filters {
+  display: flex;
+  gap: 10px;
+}
+
+.filters select {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--grey-border);
+  background: var(--panel);
+  color: var(--text-main);
+  font-size: 13px;
+  outline: none;
+}
+
+.filters select:focus {
+  border-color: var(--orange-main);
+}
+
+/* =========================
+   KPI STATS (MATCH CUSTOMERS)
+========================= */
+.analytics-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.stat {
+  padding: 18px;
+  border-radius: 12px;
+  background: var(--panel);
+  border: 1px solid var(--grey-border);
+  box-shadow: 0 8px 25px var(--shadow);
+  transition: 0.2s;
+}
+
+.stat:hover {
+  transform: translateY(-3px);
+  border-color: var(--orange-main);
+}
+
+.stat span {
+  font-size: 11px;
+  color: var(--text-light);
+}
+
+.stat strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 20px;
+}
+
+/* =========================
+   GRID (CHARTS)
+========================= */
+.analytics-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+/* =========================
+   PANEL (REUSABLE)
+========================= */
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--grey-border);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 8px 25px var(--shadow);
+}
+
+.panel-header {
+  margin-bottom: 12px;
+}
+
+.panel-header h3 {
+  font-size: 16px;
+}
+
+/* =========================
+   CHART PLACEHOLDER
+========================= */
+.chart-placeholder {
+  height: 220px;
+  border-radius: 10px;
+  border: 1px dashed var(--grey-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: var(--text-light);
+}
+
+/* =========================
+   TABLE (MATCH ORDERS EXACTLY)
+========================= */
+.table {
+  background: var(--panel);
+  border: 1px solid var(--grey-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.table-header,
+.table-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  padding: 14px 16px;
+  align-items: center;
+}
+
+.table-header {
+  background: rgba(0, 0, 0, 0.03);
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--text-light);
+  border-bottom: 1px solid var(--grey-border);
+}
+
+.table-row {
+  border-bottom: 1px solid var(--grey-border);
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.table-row:hover {
+  background: rgba(255, 138, 0, 0.05);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+  .analytics-page {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .analytics-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .analytics-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .table-header,
+  .table-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .analytics-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}

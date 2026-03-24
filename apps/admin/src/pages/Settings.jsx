@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../styles/global.css";
+import "../App.css";
 import "./settings.css";
 
 export default function Settings() {
