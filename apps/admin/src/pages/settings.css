@@ -137,7 +137,7 @@
 
 /* PRIMARY */
 .btn.primary {
-  border-color: var(--orange-main);
+  border-color: var(--text-main);
   color: var(--orange-main);
 }
 

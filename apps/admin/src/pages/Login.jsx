@@ -13,6 +13,13 @@ export default function Login() {
     pin: "",
   });
 
+  useEffect(() => {
+  const token = localStorage.getItem("duka2_token");
+  if (token) {
+    navigate("/");
+  }
+}, []);
+
   // SPLASH
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1000);
