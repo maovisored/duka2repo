@@ -1,34 +1,73 @@
+/* =========================
+   ROOT VARIABLES (FLUID + THEME)
+========================= */
 :root {
   --bg: #f4f6f8;
   --panel: #ffffff;
   --border: #e2e2e2;
   --text-main: #111;
   --text-light: #555;
+  --text-muted: #888;
+
   --orange-main: #ff8a00;
   --orange-hover: #e07a00;
+
   --shadow: rgba(0,0,0,0.08);
+
+  /* Fluid system */
+  --radius: 10px;
+  --spacing: clamp(12px, 2vw, 20px);
+
+  --font-sm: clamp(13px, 1.5vw, 14px);
+  --font-md: clamp(14px, 1.8vw, 16px);
+  --font-lg: clamp(20px, 3vw, 28px);
+
   --transition-fast: 0.2s ease-in-out;
 }
 
+/* DARK MODE */
 .dark {
   --bg: #121212;
   --panel: #1a1a1a;
   --border: #2a2a2a;
   --text-main: #eaeaea;
   --text-light: #aaa;
+  --text-muted: #777;
   --shadow: rgba(0,0,0,0.4);
 }
 
 /* =========================
-   GLOBAL INPUTS & BUTTONS
+   GLOBAL RESET
+========================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text-main);
+  overflow-x: hidden;
+}
+
+/* =========================
+   INPUTS & BUTTONS
 ========================= */
 input, select, textarea {
   width: 100%;
-  padding: 12px 14px;
+  padding: 14px;
   margin: 8px 0;
-  border-radius: 8px;
+  border-radius: var(--radius);
   border: 1px solid var(--border);
-  font-size: 14px;
+  font-size: 16px; /* prevents iOS zoom */
   background: var(--panel);
   color: var(--text-main);
   transition: border var(--transition-fast), box-shadow var(--transition-fast);
@@ -43,6 +82,10 @@ input:focus, select:focus, textarea:focus {
 button {
   border: none;
   cursor: pointer;
+  padding: 14px;
+  min-height: 44px;
+  border-radius: var(--radius);
+  font-size: var(--font-md);
   transition: all var(--transition-fast);
 }
 
@@ -50,11 +93,15 @@ button:focus {
   outline: none;
 }
 
+button, input {
+  -webkit-tap-highlight-color: transparent;
+}
+
 /* =========================
-   SPLASH SCREEN / LOGO
+   SPLASH SCREEN
 ========================= */
 .splash-screen {
-  height: 100vh;
+  min-height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -62,13 +109,12 @@ button:focus {
 }
 
 .floating-logo {
-  font-size: 36px;
+  font-size: var(--font-lg);
   font-weight: bold;
-    font-family: 'Titillium Web', sans-serif;
+  font-family: 'Titillium Web', sans-serif;
   display: flex;
   gap: 4px;
   animation: floatLogo 1.5s ease-in-out infinite alternate;
-  color: var(--text-main);
 }
 
 .floating-logo .logo-orange {
@@ -81,22 +127,22 @@ button:focus {
 }
 
 /* =========================
-   INTRO SLIDES
+   INTRO
 ========================= */
 .intro-container {
-  height: 100vh;
+  min-height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: var(--spacing);
   background: var(--bg);
-  padding: 16px;
 }
 
 .intro-card {
   background: var(--panel);
-  padding: 24px;
+  padding: var(--spacing);
   border-radius: 12px;
-  max-width: 320px;
+  max-width: 380px;
   width: 100%;
   text-align: center;
   box-shadow: 0 4px 12px var(--shadow);
@@ -104,13 +150,12 @@ button:focus {
 }
 
 .intro-card h2 {
-  font-size: 20px;
+  font-size: var(--font-md);
   margin-bottom: 12px;
-  color: var(--text-main);
 }
 
 .intro-card p {
-  font-size: 14px;
+  font-size: var(--font-sm);
   color: var(--text-light);
   margin-bottom: 20px;
 }
@@ -118,11 +163,7 @@ button:focus {
 .intro-controls button {
   background: var(--orange-main);
   color: #fff;
-  padding: 12px;
-  border-radius: 8px;
-  font-weight: 600;
   width: 100%;
-  transition: background var(--transition-fast), transform var(--transition-fast);
 }
 
 .intro-controls button:hover {
@@ -130,12 +171,65 @@ button:focus {
   transform: scale(1.02);
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+/* =========================
+   LOGIN
+========================= */
+.login-container {
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing);
+  background: var(--bg);
 }
 
+.login-card {
+  background: var(--panel);
+  padding: var(--spacing);
+  border-radius: 12px;
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 4px 12px var(--shadow);
+  animation: fadeIn 0.3s ease-in-out;
+}
 
+.login-card h1 {
+  font-size: var(--font-lg);
+  margin-bottom: 16px;
+}
+
+.login-btn {
+  background: var(--orange-main);
+  color: #fff;
+  width: 100%;
+  margin-top: 12px;
+}
+
+.login-btn:hover {
+  background: var(--orange-hover);
+  transform: scale(1.02);
+}
+
+.auth-links {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-sm);
+  margin-top: 12px;
+}
+
+.auth-links span {
+  color: var(--orange-main);
+  cursor: pointer;
+}
+
+.auth-links span:hover {
+  color: var(--orange-hover);
+}
+
+/* =========================
+   PIN FIELD
+========================= */
 .pin-field {
   position: relative;
 }
@@ -159,139 +253,32 @@ button:focus {
 }
 
 /* =========================
-   LOGIN / REGISTER CARDS
+   REMEMBER CHECK
 ========================= */
-.login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 16px;
-  background: var(--bg);
-}
-
-.login-card {
-  background: var(--panel);
-  padding: 24px;
-  border-radius: 12px;
-  max-width: 320px;
-  width: 100%;
-  text-align: center;
-  box-shadow: 0 4px 12px var(--shadow);
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-.login-card h1 {
-  font-size: 28px;
-  margin-bottom: 16px;
-  color: var(--text-main);
-}
-
-.login-btn {
-  background: var(--orange-main);
-  color: #fff;
-  padding: 12px;
-  width: 100%;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 16px;
-  margin-top: 12px;
-  transition: background var(--transition-fast), transform var(--transition-fast);
-}
-
-.login-btn:hover {
-  background: var(--orange-hover);
-  transform: scale(1.02);
-}
-
-.auth-links {
-  display: flex;
-  justify-content: space-between;
-  font-size: 13px;
-  margin-top: 12px;
-}
-
-.auth-links span {
-  color: var(--orange-main);
-  cursor: pointer;
-  transition: color var(--transition-fast);
-}
-
-.auth-links span:hover {
-  color: var(--orange-hover);
-}
-
-/* Remember Me checkbox alignment */
 .remember-check {
   display: flex;
-  align-items: center;      /* vertical center */
-  justify-content: flex-start; /* left align */
-  gap: 6px;                 /* space between checkbox and label */
-  font-size: 13px;
-  background: none;
-  color: var(--text-main);  /* theme-aware */
-  width: 100%;              /* fill the parent width to respect flex start */
-  text-align: left;         /* ensure label text is left-aligned */
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-sm);
 }
 
 .remember-check input[type="checkbox"] {
-  width: auto;
-  height: auto;
-  margin: 0;
-  accent-color: var(--orange-main); /* matches theme */
-}
-
-.forgot-section {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  accent-color: var(--orange-main);
 }
 
 /* =========================
-   APP FOOTER
-========================= */
-
-.app-footer {
-  margin-top: 40px;
-  padding: 20px 10px;
-  text-align: center;
-  font-size: 12px;
-  color: var(--text-muted);
-  opacity: 0.75;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.app-footer p {
-  margin: 0;
-  font-weight: 500;
-}
-
-.app-footer span {
-  font-size: 11px;
-}
-
-
-/* =========================
-   FORM ROW LAYOUT (LABEL OUTSIDE)
+   FORM ROW
 ========================= */
 .form-row {
   display: flex;
   align-items: center;
-  gap: 5px;
-  margin-bottom: 10px;
-  background: var(--panel-bg);
+  gap: 10px;
+  margin-bottom: 12px;
 }
 
 .form-row label {
-  width: 70px;
-  font-size: 13px;
-  color: var(--text-light);
-  text-align: left;
-  flex-shrink: 0;
-    background: var(--panel-bg);
-
+  min-width: 80px;
+  font-size: var(--font-sm);
 }
 
 .form-row input {
@@ -299,13 +286,37 @@ button:focus {
   margin: 0;
 }
 
-/* PIN FIELD FIX INSIDE ROW */
-.form-row .pin-field {
-  width: 100%;
+/* =========================
+   FOOTER
+========================= */
+.app-footer {
+  margin-top: 40px;
+  padding: 20px 10px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  opacity: 0.75;
 }
 
-/* MOBILE STACK (IMPORTANT) */
-@media (max-width: 480px) {
+/* =========================
+   ANIMATIONS
+========================= */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================
+   RESPONSIVENESS
+========================= */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .login-card,
+  .intro-card {
+    max-width: 100%;
+  }
+
   .form-row {
     flex-direction: column;
     align-items: flex-start;
@@ -313,6 +324,17 @@ button:focus {
 
   .form-row label {
     width: 100%;
-    margin-bottom: 4px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .login-card,
+  .intro-card {
+    padding: 16px;
+  }
+
+  .login-card h1 {
+    font-size: 22px;
   }
 }
