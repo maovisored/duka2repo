@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import AppLayout from "./layout/AppLayout";
@@ -13,28 +13,17 @@ import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
 import Inventory from "./pages/Inventory";
 
+import ProtectedRoute from "./middleware/ProtectedRoute";
+
 import "./theme.css";
 
-// 🔥 Initialize auth ONCE (no useEffect needed)
-const getInitialUser = () => {
-  const token = localStorage.getItem("duka2_token");
-  const savedUser = localStorage.getItem("duka2_current_user");
-
-  if (token && savedUser) {
-    try {
-      return JSON.parse(savedUser);
-    } catch (err) {
-      console.error("Invalid stored user:", err);
-      return null;
-    }
-  }
-
-  return null;
-};
-
 export default function App() {
-  const [user, setUser] = useState(getInitialUser);
+  // Start user as null to force login
+  const [user, setUser] = useState(null);
 
+  /* ===================== */
+  /* AUTH HANDLERS */
+  /* ===================== */
   const handleLogin = (userData, token) => {
     localStorage.setItem("duka2_current_user", JSON.stringify(userData));
     localStorage.setItem("duka2_token", token);
@@ -47,44 +36,82 @@ export default function App() {
     setUser(null);
   };
 
+  /* ===================== */
+  /* FORCE LOGOUT ON LOAD */
+  /* ===================== */
+    localStorage.removeItem("duka2_current_user");
+    localStorage.removeItem("duka2_token");
+
+
+  /* ===================== */
+  /* IDLE TIMER SETUP */
+  /* ===================== */
+  const timeoutRef = useRef(null);
+  const IDLE_TIME = 10 * 60 * 1000; // 10 minutes
+
+  const resetTimer = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
+    timeoutRef.current = setTimeout(() => {
+      handleLogout();
+      alert("Session expired. Please log in again.");
+    }, IDLE_TIME);
+  };
+
+  /* ===================== */
+  /* TRACK USER ACTIVITY */
+  /* ===================== */
+  useEffect(() => {
+    if (!user) return;
+
+    const events = ["mousemove", "keydown", "click", "scroll"];
+
+    events.forEach((event) => window.addEventListener(event, resetTimer));
+
+    resetTimer();
+
+    return () => {
+      events.forEach((event) =>
+        window.removeEventListener(event, resetTimer)
+      );
+      clearTimeout(timeoutRef.current);
+    };
+  }, [user]);
+
+  /* ===================== */
+  /* ROUTES */
+  /* ===================== */
   return (
     <Routes>
-
-      {/* LOGIN — BLOCK IF ALREADY LOGGED IN */}
+      {/* LOGIN */}
       <Route
         path="/login"
         element={
-          user ? (
-            <Navigate to="/" replace />
-          ) : (
-            <Login onLogin={handleLogin} />
-          )
+          user ? <Navigate to="/" replace /> : <Login onLogin={handleLogin} />
         }
       />
 
-      {/* PROTECTED ROUTES */}
+      {/* PROTECTED */}
       <Route
+        path="/"
         element={
-          user ? (
+          <ProtectedRoute user={user}>
             <AppLayout user={user} onLogout={handleLogout} />
-          ) : (
-            <Navigate to="/login" replace />
-          )
+          </ProtectedRoute>
         }
       >
-        <Route path="/" element={<Dashboard user={user} />} />
-        <Route path="/orders" element={<Orders />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/customers" element={<Customers />} />
-        <Route path="/transactions" element={<Transactions />} />
-        <Route path="/analytics" element={<Analytics />} />
-        <Route path="/inventory" element={<Inventory />} />
-        <Route path="/settings" element={<Settings />} />
+        <Route index element={<Dashboard user={user} />} />
+        <Route path="orders" element={<Orders />} />
+        <Route path="products" element={<Products />} />
+        <Route path="customers" element={<Customers />} />
+        <Route path="transactions" element={<Transactions />} />
+        <Route path="analytics" element={<Analytics />} />
+        <Route path="inventory" element={<Inventory />} />
+        <Route path="settings" element={<Settings />} />
       </Route>
 
       {/* FALLBACK */}
       <Route path="*" element={<Navigate to="/" replace />} />
-
     </Routes>
   );
 }

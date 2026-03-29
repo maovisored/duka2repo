@@ -166,6 +166,17 @@ h1, h2, h3, h4 {
   color: var(--orange-main);
 }
 
+
+.app.sidebar-open .main {
+  margin-left: 160px;
+}
+
+@media (max-width: 1024px) {
+  .app.sidebar-open .main {
+    margin-left: 0;
+  }
+}
+
 /* =========================
    MAIN CONTENT
 ========================= */
@@ -392,16 +403,21 @@ h1, h2, h3, h4 {
    RESPONSIVE
 ========================= */
 
-/* Tablets */
+/* =========================
+   RESPONSIVE FIX (CRITICAL)
+========================= */
+
 @media (max-width: 1024px) {
+
   .main {
-    margin-left: 0;
-    width: 100%;
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding: 16px;
   }
 
   .sidebar {
     transform: translateX(-100%);
-    position: absolute;
+    position: fixed;
     z-index: 1000;
   }
 
