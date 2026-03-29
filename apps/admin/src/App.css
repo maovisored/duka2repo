@@ -76,6 +76,7 @@ h1, h2, h3, h4 {
 ================================= */
 #root {
   width: 100%;
+  margin-left: var(--sidebar-width);
   max-width: 100%;
   min-height: 100svh;
   display: flex;
@@ -86,6 +87,7 @@ h1, h2, h3, h4 {
 /* APP SHELL: Sidebar + Content */
 .app-shell {
   display: flex;
+  position: relative;
   width: 100%;
   min-height: 100vh;
   background: var(--bg-main);
