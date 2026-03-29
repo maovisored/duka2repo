@@ -15,7 +15,7 @@ import Inventory from "./pages/Inventory";
 
 import ProtectedRoute from "./middleware/ProtectedRoute";
 
-import "./theme.css";
+import "./App.css";
 
 export default function App() {
   /* ===================== */

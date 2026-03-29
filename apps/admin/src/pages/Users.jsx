@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import API from "../services/api";
 import Sidebar from "../components/Sidebar";
-import "../theme.css";
+import "../App.css";
 
 
 export default function Users() {
