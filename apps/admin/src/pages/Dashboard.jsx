@@ -66,27 +66,43 @@ export default function Dashboard({ user, onLogout }) {
         </div>
 
         {/* KPI STRIP (MATCH ORDERS SPACING) */}
-        <section className="kpis">
-          <div className="kpi">
-            <span className="label">Active Orders</span>
-            <span className="value">1248</span>
-          </div>
+<section className="kpis">
+  <div className="kpi">
+    <div className="kpi-top">
+      <span className="label">Active Orders</span>
+      <span className="trend up">+12%</span>
+    </div>
+    <span className="value">1248</span>
+    <span className="sub">vs yesterday</span>
+  </div>
 
-          <div className="kpi">
-            <span className="label">Revenue Today</span>
-            <span className="value">KES 84K</span>
-          </div>
+  <div className="kpi">
+    <div className="kpi-top">
+      <span className="label">Revenue Today</span>
+      <span className="trend up">+8%</span>
+    </div>
+    <span className="value">KES 84K</span>
+    <span className="sub">daily total</span>
+  </div>
 
-          <div className="kpi">
-            <span className="label">Customers</span>
-            <span className="value">342</span>
-          </div>
+  <div className="kpi">
+    <div className="kpi-top">
+      <span className="label">Customers</span>
+      <span className="trend down">-3%</span>
+    </div>
+    <span className="value">342</span>
+    <span className="sub">active users</span>
+  </div>
 
-          <div className="kpi">
-            <span className="label">Conversion</span>
-            <span className="value">94%</span>
-          </div>
-        </section>
+  <div className="kpi">
+    <div className="kpi-top">
+      <span className="label">Conversion</span>
+      <span className="trend up">+2%</span>
+    </div>
+    <span className="value">94%</span>
+    <span className="sub">checkout rate</span>
+  </div>
+</section>
 
         {/* MAIN CONTENT */}
         <div className="grid">

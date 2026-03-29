@@ -188,28 +188,145 @@ h1, h2, h3, h4 {
 /* =========================
    KPI GRID (AUTO RESPONSIVE)
 ========================= */
-.kpi {
-    display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 14px;
-  border-radius: 12px;
-  background: var(--panel);
-  border: 1px solid var(--grey-border);
-  box-shadow: 0 8px 25px var(--shadow);
+/* =========================
+   KPI GRID (UPGRADED)
+========================= */
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* FORCE 2x2 GRID */
+  gap: 14px;
+  margin-bottom: 20px;
 }
 
-.kpi .value {
-  font-size: 20px;
-  font-weight: 600;
+/* CARD */
+.kpi {
+  background: var(--panel);
+  border: 1px solid var(--grey-border);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  overflow: hidden;
+  transition: 0.25s ease;
 }
+
+/* SUBTLE HOVER */
+.kpi:hover {
+  border-color: var(--orange-main);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+
+/* TOP ROW */
+.kpi-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.kpi::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--orange-main);
+  transition: width 0.4s ease;
+}
+
+.kpi:hover::after {
+  width: 100%;
+}
+
+
+/* LABEL */
+.label {
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+/* VALUE */
+.value {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* SUBTEXT */
+.sub {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* TREND BADGES */
+.trend {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 20px;
+  border: 1px solid var(--grey-border);
+}
+
+.trend.up {
+  color: #4caf50;
+  border-color: rgba(76, 175, 80, 0.3);
+  background: rgba(76, 175, 80, 0.08);
+}
+
+.trend.down {
+  color: #f44336;
+  border-color: rgba(244, 67, 54, 0.3);
+  background: rgba(244, 67, 54, 0.08);
+}
+
+@media (max-width: 1024px) {
+  .kpis {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .main {
+    padding: 16px;
+  }
+}
+@media (max-width: 768px) {
+  .kpis {
+    grid-template-columns: 1fr;
+  }
+
+  .kpi {
+    padding: 14px;
+  }
+
+  .value {
+    font-size: 20px;
+  }
+}
+
+
 /* =========================
    GRID LAYOUT
 ========================= */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: 1.5fr 1fr 1fr;
   gap: 20px;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* =========================
@@ -300,16 +417,11 @@ h1, h2, h3, h4 {
     gap: 10px;
   }
 
-  .kpis {
-    grid-template-columns: 1fr 1fr;
+    .main {
+    margin-left: 0;
+    width: 100%;
   }
-}
 
-/* Small phones */
-@media (max-width: 480px) {
-  .kpis {
-    grid-template-columns: 1fr;
-  }
 }
 
 
@@ -439,6 +551,17 @@ h1, h2, h3, h4 {
 
 .table-row:hover {
   background: rgba(255, 138, 0, 0.05);
+}
+
+@media (max-width: 768px) {
+  .table-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .table-header {
+    display: none; /* cleaner mobile UX */
+  }
 }
 
 /* =========================
