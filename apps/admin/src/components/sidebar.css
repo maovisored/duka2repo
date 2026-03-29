@@ -8,8 +8,6 @@
   position: fixed; /* ✅ FIXED */
   left: 0;
 
-  height: calc(100vh - 70px); /* 👈 avoid header overlap */
-
   background: #0b0f14;
   padding: 20px;
 
