@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./header.css";
-import "../theme.css";
-
 
 export default function Header({ sidebarLinks = [] }) {
   const [menuOpen, setMenuOpen] = useState(false);

@@ -130,10 +130,10 @@ h1, h2, h3, h4 {
 .intro-card,
 .login-card {
   width: 100%;
-  max-width: 380px;
+  max-width: 480px;
   padding: var(--spacing);
   border-radius: var(--radius);
-  background: var(--panel);
+  background: white;
   border: 1px solid var(--grey-border);
   box-shadow: 0 10px 40px var(--shadow);
   animation: fadeIn 0.3s ease;
