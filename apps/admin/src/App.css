@@ -30,8 +30,8 @@
 
 /* DARK MODE */
 body.dark {
-  --bg-main: #ffffff;
-  --panel: #ffffff;
+  --bg-main: #252525;
+  --panel: #383838;
   --text-main: #eaeaea;
   --text-light: #9aa4b2;
   --text-muted: #777;
