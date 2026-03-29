@@ -69,9 +69,6 @@ export default function AppLayout({ user, onLogout }) {
         {/* HEADER */}
         <header className="app-header">
           <div className="header-left">
-            <button className="menu-toggle" onClick={toggleSidebar}>
-              ☰
-            </button>
 
             <div className="logo">
               <span className="logo-white">Duka</span>
