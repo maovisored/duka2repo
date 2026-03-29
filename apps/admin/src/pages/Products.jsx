@@ -50,7 +50,8 @@ export default function Products() {
   return (
     <div className="products-page">
       {/* HEADER */}
-
+<div className="orders-header">
+        <h2>Orders</h2>
 
         <div className="filters">
           <input
@@ -59,6 +60,7 @@ export default function Products() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
+      </div>
       </div>
 
       {/* TABLE */}
