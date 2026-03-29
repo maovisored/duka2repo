@@ -1,18 +1,13 @@
 /* HEADER BASE */
 .app-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 var(--spacing);
-  height: 50px;
-  background: var(--primary-dark);
-  color: var(--primary-dark);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
   position: fixed;
   top: 0;
   left: 0;
+
   width: 100%;
-  z-index: 9999;
+  height: 70px;
+
+  z-index: 1100;
 }
 
 /* LOGO */

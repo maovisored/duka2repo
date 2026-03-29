@@ -74,7 +74,7 @@ h1, h2, h3, h4 {
 /* =================================
    ROOT APP STRUCTURE
 ================================= */
-#root {
+html, body, #root {
   width: 100%;
   max-width: 100%;
   min-height: 100svh;
