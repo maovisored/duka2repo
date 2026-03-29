@@ -97,7 +97,6 @@ h1, h2, h3, h4 {
   margin-left: var(--sidebar-width);
   margin-top: 70px; /* 👈 CRITICAL (header height) */
 
-  width: calc(100% - var(--sidebar-width));
 
   display: flex;
   flex-direction: column;
