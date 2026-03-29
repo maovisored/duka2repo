@@ -86,7 +86,7 @@ html, body, #root {
 
 /* APP SHELL: Sidebar + Content */
 .app-shell {
-  display: flex;
+  display: block; /* ✅ stop flex interference */
   width: 100%;
   min-height: 100vh;
 }
