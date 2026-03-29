@@ -88,18 +88,17 @@ h1, h2, h3, h4 {
 .app-shell {
   display: flex;
   width: 100%;
-margin-left: 490px;
+margin-left: 190px;
   min-height: 100vh;
   background: var(--bg-main);
-  justify-content: space-between;
-  align-items: center;}
+}
 
 /* SIDEBAR */
 .sidebar {
   width: var(--sidebar-width);
   min-width: var(--sidebar-width);
   height: 100vh;
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
   background: #0b0f14;
