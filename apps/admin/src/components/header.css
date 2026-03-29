@@ -35,7 +35,7 @@
 .profile-btn {
   background: none;
   border: none;
-  color: var(--text-main);
+  color: white;
   font-size: 1.8rem;
   cursor: pointer;
   transition: var(--transition);
