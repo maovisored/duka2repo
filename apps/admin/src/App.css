@@ -343,6 +343,50 @@ margin-left: 60px;
   border-color: var(--orange-main);
 }
 
+/* =========================
+   ORDER LIST
+========================= */
+.order-feed li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--grey-border);
+}
+
+/* =========================
+   STATUS TAGS
+========================= */
+.status {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.status.dispatched {
+  color: var(--orange-main);
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+/* =========================
+   ANIMATION
+========================= */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
 /* =================================
    RESPONSIVE MEDIA QUERIES
 ================================= */
