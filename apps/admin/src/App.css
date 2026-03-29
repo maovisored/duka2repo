@@ -81,6 +81,7 @@ h1, h2, h3, h4 {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+    background: white;
 }
 
 /* APP SHELL: Sidebar + Content */
@@ -88,7 +89,6 @@ h1, h2, h3, h4 {
   display: flex;
   width: 100%;
   min-height: 100vh;
-  background: white;
 }
 
 
