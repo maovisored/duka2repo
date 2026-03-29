@@ -85,7 +85,7 @@ html, body, #root {
 
 /* APP SHELL: Sidebar + Content */
 .app-shell {
-  display: block; /* ✅ stop flex interference */
+  display: flex; /* ✅ stop flex interference */
   width: 100%;
   min-height: 100vh;
     background: var(--bg-main); /* fallback, not red */
@@ -98,11 +98,6 @@ html, body, #root {
 .main {
   position: relative;
   z-index: 1300;
-
-  margin-left: var(--sidebar-width);
-  margin-top: 70px;
-
-  width: calc(100vw - var(--sidebar-width)); /* ✅ use viewport, not % */
   background: var(--bg-main); /* fallback, not red */
 
   min-height: calc(100vh - 70px);
