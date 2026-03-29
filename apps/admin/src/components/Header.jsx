@@ -1,14 +1,13 @@
-import { useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import "../App.css";
+import profileIcon from "../assets/profile.png"; // fallback avatar
+import { useNavigate, useLocation } from "react-router-dom";
 import "./header.css";
 
-export default function Header({ user, toggleSidebar, onLogout }) {
+export default function Header({ user, toggleSidebar }) {
+  const [openMenu, setOpenMenu] = useState(false);
+  const wrapperRef = useRef(null);
+  const navigate = useNavigate();
   const location = useLocation();
-  const [showNotif, setShowNotif] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
-  const notifRef = useRef(null);
-  const menuRef = useRef(null);
 
   const getTitle = () => {
     switch (location.pathname) {
@@ -23,68 +22,63 @@ export default function Header({ user, toggleSidebar, onLogout }) {
       case "/analytics":
         return "Analytics";
       default:
-        return "Duka2";
+        return "Admin Panel";
     }
   };
 
-  // Close notifications on click outside
+  const handleSignOut = () => {
+    setOpenMenu(false);
+    if (window.confirm("Are you sure you want to sign out?")) {
+      localStorage.removeItem("duka2_current_user");
+      navigate("/");
+    }
+  };
+
+  // Close menu if clicked outside
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (notifRef.current && !notifRef.current.contains(e.target)) {
-        setShowNotif(false);
-      }
-      if (menuRef.current && !menuRef.current.contains(e.target)) {
-        setShowMenu(false);
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+        setOpenMenu(false);
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
   return (
     <header className="app-header">
+      {/* Left: Logo + Page Title */}
       <div className="header-left">
-        {/* Hamburger for mobile */}
         <button className="menu-toggle" onClick={toggleSidebar}>
           ☰
         </button>
 
-        {/* Duka2 Logo */}
         <h1 className="logo">
           <span className="logo-black">Duka</span>
           <span className="logo-orange">2</span>
         </h1>
 
-        {/* Page title (desktop only) */}
         <h2 className="page-title">{getTitle()}</h2>
       </div>
 
+      {/* Right: Profile Hamburger */}
       <div className="header-right">
-        {/* Notification Icon */}
-        <div className="notif-wrapper">
-          <button className="btn icon" onClick={() => setShowNotif(!showNotif)}>
-            🔔
-          </button>
-          {showNotif && (
-            <div className="dropdown" ref={notifRef}>
-              <p>No new notifications</p>
-            </div>
-          )}
-        </div>
+        <div className="profile-wrapper" ref={wrapperRef}>
+          <img
+            src={profileIcon}
+            alt="Profile"
+            className="profile-icon"
+            onClick={() => setOpenMenu((o) => !o)}
+          />
 
-        {/* Hamburger menu for mobile options */}
-        <div className="menu-wrapper" ref={menuRef}>
-          <button className="btn icon" onClick={() => setShowMenu(!showMenu)}>
-            ⋮
-          </button>
-          {showMenu && (
-            <div className="dropdown menu-dropdown">
-              <div className="menu-item user-info">
-                <span>{user?.name || "Admin"}</span>
-              </div>
-              <div className="menu-item logout" onClick={onLogout}>
+          {openMenu && (
+            <div className="profile-dropdown open">
+              <div className="menu-item user-name">{user?.name || "Admin"}</div>
+              <button onClick={() => navigate("/profile")}>My Profile</button>
+              <button onClick={() => navigate("/orders")}>Orders</button>
+              <button className="logout" onClick={handleSignOut}>
                 Sign Out
-              </div>
+              </button>
             </div>
           )}
         </div>
