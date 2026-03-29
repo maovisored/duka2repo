@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getProducts } from "../api/client";
-import "../theme.css";
+import "../App.css";
 
 export default function Dashboard({ user, onLogout }) {
   const [products, setProducts] = useState([]);
