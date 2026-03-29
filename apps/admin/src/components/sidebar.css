@@ -2,23 +2,14 @@
    SIDEBAR (FINAL SYSTEM)
 ================================= */
 .sidebar {
-  width: var(--sidebar-width, 260px);
-  min-width: var(--sidebar-width, 260px);
-
-  position: fixed; /* ✅ FIXED */
+  position: fixed;
+  top: 70px;
   left: 0;
 
-  background: #0b0f14;
-  padding: 20px;
+  width: var(--sidebar-width);
+  height: calc(100vh - 70px);
 
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-
-  box-shadow: 4px 0 20px rgba(0,0,0,0.25);
   z-index: 1000;
-
-  transition: transform 0.3s ease;
 }
 
 

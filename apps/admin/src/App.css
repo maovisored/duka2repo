@@ -130,6 +130,19 @@ h1, h2, h3, h4 {
   gap: 12px;
 }
 
+
+.sidebar {
+  position: fixed;
+  top: 70px;
+  left: 0;
+
+  width: var(--sidebar-width);
+  height: calc(100vh - 70px);
+
+  z-index: 1000;
+}
+
+
 /* =================================
    BUTTONS
 ================================= */
