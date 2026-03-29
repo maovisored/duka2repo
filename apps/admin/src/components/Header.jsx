@@ -4,7 +4,7 @@ import "./header.css";
 import "../theme.css";
 
 
-export default function Header({ sidebarLinks = [], toggleSidebar }) {
+export default function Header({ sidebarLinks = [] }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const wrapperRef = useRef(null);
   const navigate = useNavigate();
@@ -32,9 +32,6 @@ export default function Header({ sidebarLinks = [], toggleSidebar }) {
     <header className="app-header">
       {/* LEFT: Logo */}
       <div className="header-left">
-        <button className="menu-toggle" onClick={toggleSidebar}>
-          ☰
-        </button>
 
         <div className="logo">
           <span className="logo-white">Duka</span>
