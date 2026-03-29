@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import AppLayout from "./layout/AppLayout";
@@ -18,8 +18,15 @@ import ProtectedRoute from "./middleware/ProtectedRoute";
 import "./theme.css";
 
 export default function App() {
-  // Start user as null to force login
-  const [user, setUser] = useState(null);
+  /* ===================== */
+  /* USER STATE (force logout initially) */
+  /* ===================== */
+  const [user, setUser] = useState(() => {
+    // Clean localStorage on app start
+    localStorage.removeItem("duka2_current_user");
+    localStorage.removeItem("duka2_token");
+    return null;
+  });
 
   /* ===================== */
   /* AUTH HANDLERS */
@@ -30,18 +37,11 @@ export default function App() {
     setUser(userData);
   };
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     localStorage.removeItem("duka2_current_user");
     localStorage.removeItem("duka2_token");
     setUser(null);
-  };
-
-  /* ===================== */
-  /* FORCE LOGOUT ON LOAD */
-  /* ===================== */
-    localStorage.removeItem("duka2_current_user");
-    localStorage.removeItem("duka2_token");
-
+  }, []);
 
   /* ===================== */
   /* IDLE TIMER SETUP */
@@ -49,14 +49,14 @@ export default function App() {
   const timeoutRef = useRef(null);
   const IDLE_TIME = 10 * 60 * 1000; // 10 minutes
 
-  const resetTimer = () => {
+  const resetTimer = useCallback(() => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
     timeoutRef.current = setTimeout(() => {
       handleLogout();
       alert("Session expired. Please log in again.");
     }, IDLE_TIME);
-  };
+  }, [handleLogout, IDLE_TIME]);
 
   /* ===================== */
   /* TRACK USER ACTIVITY */
@@ -65,7 +65,6 @@ export default function App() {
     if (!user) return;
 
     const events = ["mousemove", "keydown", "click", "scroll"];
-
     events.forEach((event) => window.addEventListener(event, resetTimer));
 
     resetTimer();
@@ -76,7 +75,7 @@ export default function App() {
       );
       clearTimeout(timeoutRef.current);
     };
-  }, [user]);
+  }, [user, resetTimer]);
 
   /* ===================== */
   /* ROUTES */
