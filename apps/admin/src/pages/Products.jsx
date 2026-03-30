@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "../App.css";
 import "./products.css";
 
-// ✅ API
+// API
 import {
   fetchProducts,
   createProduct,
@@ -11,7 +11,7 @@ import {
   deleteVariation as apiDeleteVariation,
   addWeight as apiAddWeight,
   deleteWeight as apiDeleteWeight,
-  deleteProduct as apiDeleteProduct // new delete product API
+  deleteProduct as apiDeleteProduct
 } from "../api/products";
 
 export default function Products() {
@@ -19,6 +19,7 @@ export default function Products() {
   const [search, setSearch] = useState("");
   const [expandedId, setExpandedId] = useState(null);
   const [editedNames, setEditedNames] = useState({});
+  const [localImages, setLocalImages] = useState({}); // store local image previews
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -26,7 +27,7 @@ export default function Products() {
         const res = await fetchProducts();
         setProducts(res.data);
       } catch (err) {
-        console.error("Failed to load products", err);
+        console.error(err);
       }
     };
     loadProducts();
@@ -36,6 +37,9 @@ export default function Products() {
     p.name.toLowerCase().includes(search.toLowerCase())
   );
 
+  // =========================
+  // PRODUCT ACTIONS
+  // =========================
   const handleNameChange = (id, value) => {
     setEditedNames(prev => ({ ...prev, [id]: value }));
   };
@@ -43,29 +47,19 @@ export default function Products() {
   const saveNameChange = async (product) => {
     if (!editedNames[product.id]) return;
     try {
-      await updateProduct(product.id, {
-        name: editedNames[product.id],
-        active: product.active
-      });
+      await updateProduct(product.id, { name: editedNames[product.id], active: product.active });
       const res = await fetchProducts();
       setProducts(res.data);
       setEditedNames(prev => ({ ...prev, [product.id]: "" }));
-    } catch (err) {
-      console.error(err);
-    }
+    } catch (err) { console.error(err); }
   };
 
   const toggleActive = async (product) => {
     try {
-      await updateProduct(product.id, {
-        name: product.name,
-        active: !product.active
-      });
+      await updateProduct(product.id, { name: product.name, active: !product.active });
       const res = await fetchProducts();
       setProducts(res.data);
-    } catch (err) {
-      console.error(err);
-    }
+    } catch (err) { console.error(err); }
   };
 
   const handleAddProduct = async () => {
@@ -73,9 +67,7 @@ export default function Products() {
       await createProduct({ name: "New Product", category: "Snacks" });
       const res = await fetchProducts();
       setProducts(res.data);
-    } catch (err) {
-      console.error(err);
-    }
+    } catch (err) { console.error(err); }
   };
 
   const handleDeleteProduct = async (id) => {
@@ -83,20 +75,21 @@ export default function Products() {
       await apiDeleteProduct(id);
       const res = await fetchProducts();
       setProducts(res.data);
-    } catch (err) {
-      console.error(err);
-    }
+    } catch (err) { console.error(err); }
+  };
+
+  const handleImageChange = (id, file) => {
+    const url = URL.createObjectURL(file);
+    setLocalImages(prev => ({ ...prev, [id]: url }));
+    // optional: upload file via API
   };
 
   // =========================
   // VARIATIONS & WEIGHTS
   // =========================
   const addVariation = async (productId) => {
-    try {
-      await apiAddVariation({ product_id: productId, flavour: "New Flavour", image_url: "" });
-      const res = await fetchProducts();
-      setProducts(res.data);
-    } catch (err) { console.error(err); }
+    try { await apiAddVariation({ product_id: productId, flavour: "New Flavour", image_url: "" }); const res = await fetchProducts(); setProducts(res.data); }
+    catch (err) { console.error(err); }
   };
 
   const updateVariation = (productId, varId, field, value) => {
@@ -109,7 +102,7 @@ export default function Products() {
   };
 
   const deleteVariation = async (varId) => {
-    try { await apiDeleteVariation(varId); const res = await fetchProducts(); setProducts(res.data); } 
+    try { await apiDeleteVariation(varId); const res = await fetchProducts(); setProducts(res.data); }
     catch (err) { console.error(err); }
   };
 
@@ -135,61 +128,73 @@ export default function Products() {
     catch (err) { console.error(err); }
   };
 
+  // =========================
+  // RENDER
+  // =========================
   return (
-    <div className="products-page">
+    <div className="products-page orders-page">
       <div className="orders-header">
         <h2>Products</h2>
-        <input
-          type="text"
-          placeholder="Search products..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+        <input type="text" placeholder="Search products..." value={search} onChange={e => setSearch(e.target.value)} />
       </div>
 
-      <div className="product-list">
+      <div className="orders-table">
+        <div className="table-header">
+          <span>Image</span>
+          <span>Name</span>
+          <span>Category</span>
+          <span>Status</span>
+          <span>Manage</span>
+          <span>Actions</span>
+        </div>
+
         {filtered.map(product => (
           <div key={product.id} className="table-row">
-            {/* LEFT - IMAGE */}
+            {/* IMAGE */}
             <div className="product-left">
-              <img src={product.image} alt="" />
+              <img src={localImages[product.id] || product.image} alt="" />
+              <input type="file" accept="image/*" onChange={e => handleImageChange(product.id, e.target.files[0])} />
             </div>
 
-            {/* CENTER - NAME + CATEGORY */}
-            <div className="product-center">
+            {/* NAME */}
+            <div>
               <input
                 value={editedNames[product.id] ?? product.name}
-                onChange={(e) => handleNameChange(product.id, e.target.value)}
+                onChange={e => handleNameChange(product.id, e.target.value)}
               />
-              <span>{product.category}</span>
+            </div>
+
+            {/* CATEGORY */}
+            <div>{product.category}</div>
+
+            {/* STATUS */}
+            <div className={product.active ? "status confirmed" : "status cancelled"}>
+              {product.active ? "Active" : "Inactive"}
+            </div>
+
+            {/* MANAGE */}
+            <div>
+              <button onClick={() => setExpandedId(expandedId === product.id ? null : product.id)}>
+                {expandedId === product.id ? "Close" : "Manage"}
+              </button>
             </div>
 
             {/* ACTIONS */}
-            <div className="product-actions actions">
-              <button onClick={() => setExpandedId(expandedId === product.id ? null : product.id)}>
-                Manage
-              </button>
-              <button
-                className={product.active ? "active" : "inactive"}
-                onClick={() => toggleActive(product)}
-              >
-                {product.active ? "Active" : "Inactive"}
-              </button>
-              <button className="danger" onClick={() => handleDeleteProduct(product.id)}>
-                Delete
-              </button>
-              <button onClick={() => saveNameChange(product)}>Save Changes</button>
+            <div className="actions">
+              <button onClick={() => toggleActive(product)}>{product.active ? "Deactivate" : "Activate"}</button>
+              <button className="danger" onClick={() => handleDeleteProduct(product.id)}>Delete</button>
+              <button onClick={() => saveNameChange(product)}>Save</button>
             </div>
 
             {/* EXPANDED VARIATIONS */}
             {expandedId === product.id && (
-              <div className="product-details">
+              <div className="order-details">
                 {product.variations.map(v => (
                   <div key={v.id} className="variation-card">
                     <div className="variation-header">
                       <input
                         value={v.flavour}
-                        onChange={(e) => updateVariation(product.id, v.id, "flavour", e.target.value)}
+                        onChange={e => updateVariation(product.id, v.id, "flavour", e.target.value)}
                       />
                       <button className="danger" onClick={() => deleteVariation(v.id)}>Delete</button>
                     </div>
@@ -199,11 +204,11 @@ export default function Products() {
                         <div key={w.id} className="weight-row">
                           <input
                             value={w.weight}
-                            onChange={(e) => updateWeight(product.id, v.id, w.id, "weight", e.target.value)}
+                            onChange={e => updateWeight(product.id, v.id, w.id, "weight", e.target.value)}
                           />
                           <input
                             value={w.price}
-                            onChange={(e) => updateWeight(product.id, v.id, w.id, "price", e.target.value)}
+                            onChange={e => updateWeight(product.id, v.id, w.id, "price", e.target.value)}
                           />
                           <button className="danger" onClick={() => deleteWeight(w.id)}>x</button>
                         </div>
@@ -212,6 +217,7 @@ export default function Products() {
                     </div>
                   </div>
                 ))}
+
                 <div className="detail-actions">
                   <button onClick={() => addVariation(product.id)}>+ Add Variation</button>
                 </div>
@@ -221,9 +227,7 @@ export default function Products() {
         ))}
 
         <div className="detail-actions">
-          <button className="add-product" onClick={handleAddProduct}>
-            + Add Product
-          </button>
+          <button className="add-product" onClick={handleAddProduct}>+ Add Product</button>
         </div>
       </div>
     </div>
