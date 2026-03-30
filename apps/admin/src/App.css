@@ -117,7 +117,7 @@ html, body, #root {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 50px;
+  margin-bottom: 80px;
   font-size: var(--font-sm);
   flex-wrap: wrap;
   gap: 10px;
