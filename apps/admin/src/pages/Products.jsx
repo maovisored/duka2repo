@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import "./products.css";
-import "../App.css";
 
 import {
   fetchProducts,
