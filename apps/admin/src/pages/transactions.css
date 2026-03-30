@@ -1,8 +1,10 @@
 /* PAGE WRAPPER */
 .transactions-page {
+  padding: 20px 30px;
+  color: var(--text-main);
+  box-sizing: border-box;
   width: 100%;
-  padding: 20px 24px;
-  margin-top: 30px;
+    margin-top: 30px;
 }
 
 /* HEADER */
