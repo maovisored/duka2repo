@@ -10,7 +10,7 @@ export default function Dashboard() {
   // =========================
   // STATE
   // =========================
-  const [products, setProducts] = useState([]);
+  const [products] = useState([]);
   const { cart, setCart } = useOutletContext();
   const [darkMode, setDarkMode] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -30,23 +30,11 @@ export default function Dashboard() {
   // =========================
   const unitPrice = Number(selectedWeight?.price || 0);
 
-  // =========================
-  // FETCH PRODUCTS (API)
-  // =========================
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(
-          "https://duka2repo-production.up.railway.app/products"
-        );
-        const data = await res.json();
-        setProducts(data);
-      } catch (err) {
-        console.error("Failed to fetch products", err);
-      }
-    };
-    fetchData();
-  }, []);
+// fetch products
+fetch("/api/products")  // or "/api/full" if you keep Option A
+  .then(res => res.json())
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
 
   // =========================
   // UI EFFECTS
