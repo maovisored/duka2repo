@@ -14,7 +14,7 @@ import {
   deleteWeight as apiDeleteWeight,
   updateWeight as apiUpdateWeight,
   deleteProduct as apiDeleteProduct
-} from "../../api/products";
+} from "../../api/full";
 
 export default function ProductsAdmin() {
   const [products, setProducts] = useState([]);
