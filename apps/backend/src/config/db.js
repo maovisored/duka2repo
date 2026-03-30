@@ -15,3 +15,5 @@ console.log("DB URL:", process.env.DATABASE_URL);
 pool.connect()
   .then(() => console.log("✅ Connected to PostgreSQL"))
   .catch(err => console.error("❌ DB connection error:", err.message));
+
+  export default db; // ✅ this is the key
