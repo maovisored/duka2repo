@@ -31,7 +31,7 @@ export default function Dashboard() {
   const unitPrice = Number(selectedWeight?.price || 0);
 
 // fetch products
-fetch("/api/full")  // or "/api/full" if you keep Option A
+fetch("/api/full/full")  // or "/api/full" if you keep Option A
   .then(res => res.json())
   .then(data => console.log(data))
   .catch(err => console.error(err));
