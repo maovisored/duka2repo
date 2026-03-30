@@ -1,4 +1,46 @@
 /* =================================
+   THEME VARIABLES
+================================= */
+:root {
+  --sidebar-width: 260px;
+  --bg-main: #ffffff;
+  --panel: #ffffff;
+  --text-main: #111;
+  --text-light: #666;
+  --text-muted: #888;
+
+  --primary-dark: #1a1a1a;
+  --primary-mid: #2a2a2a;
+
+  --orange-main: #ff8a00;
+  --orange-hover: #e07a00;
+
+  --grey-border: #e6e6e6;
+  --shadow: rgba(0,0,0,0.08);
+
+  --radius: 12px;
+  --spacing: clamp(12px, 2vw, 22px);
+
+  --font-sm: clamp(12px, 1.4vw, 14px);
+  --font-md: clamp(14px, 1.6vw, 16px);
+  --font-lg: clamp(20px, 3vw, 28px);
+
+  --transition: 0.25s ease;
+}
+
+/* DARK MODE */
+body.dark {
+  --bg-main: #252525;
+  --panel: #383838;
+  --text-main: #eaeaea;
+  --text-light: #9aa4b2;
+  --text-muted: #777;
+
+  --grey-border: #222831;
+  --shadow: rgba(0,0,0,0.5);
+}
+
+/* =================================
    SIDEBAR (FINAL SYSTEM)
 ================================= */
 .sidebar {
@@ -8,7 +50,7 @@
   position: fixed; /* ✅ FIXED */
   left: 0;
 
-  background: #0b0f14;
+  background: var(--primary-dark);
   padding: 20px;
 
   display: flex;
