@@ -2,13 +2,10 @@ import { useEffect, useState } from "react";
 import { getProducts } from "../api/client";
 import "../App.css";
 
-export default function Dashboard({ user, onLogout }) {
+export default function Dashboard({ onLogout }) {
   const [products, setProducts] = useState([]);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen] = useState(false);
 
-  const toggleSidebar = () => {
-    setSidebarOpen((prev) => !prev);
-  };
 
   useEffect(() => {
     getProducts().then(setProducts);
@@ -50,14 +47,6 @@ export default function Dashboard({ user, onLogout }) {
           <h2>Dashboard</h2>
 
           <div className="header-right">
-            <div className="user">
-              <span className="user-name">{user?.name || "Admin"}</span>
-              <span className="user-role">Preview</span>
-            </div>
-
-            <button className="menu-toggle" onClick={toggleSidebar}>
-  ☰
-</button>
 
             <button className="logout-btn" onClick={onLogout}>
               Logout
