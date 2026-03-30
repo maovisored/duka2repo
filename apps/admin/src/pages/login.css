@@ -57,6 +57,7 @@ body {
   width: 100%;
   color: var(--text-main);
   overflow-x: hidden;
+  top: 0;
 }
 
 /* =========================
