@@ -170,6 +170,7 @@ export default function Products() {
   return (
     <div className="products-page">
       <h2>Products</h2>
+      <h1>TEST REFRESH</h1>
       <input
         type="text"
         placeholder="Search products..."
