@@ -4,7 +4,9 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const { Pool } = pkg;
+
+
+const { Pool } = pg;
 
 // Create a single Pool instance
 const db = new Pool({
