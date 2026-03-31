@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://duka2repo-production.up.railway.app/api",
+  baseURL: "https://iwioeecgwuvibgrjbrvg.supabase.co/api",
 });
 
 // ✅ Export this properly

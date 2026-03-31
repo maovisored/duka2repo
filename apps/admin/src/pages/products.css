@@ -1,31 +1,30 @@
-/* src/pages/products.css */
-.products-container {
-  padding: 20px;
-  font-family: sans-serif;
+:root {
+  --primary: #0f693a;
+  --primary-dark: #0b4f2b;
+  --gold: goldenrod;
+  --bg: #ffffff;
+  --text: #111;
 }
 
-.products-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.products-table th,
-.products-table td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: left;
+.products-title {
+  color: var(--primary);
 }
 
 .products-table th {
-  background-color: #f2f2f2;
+  background: var(--primary);
+  color: white;
 }
 
-.products-table tr:nth-child(even) {
-  background-color: #fafafa;
+.products-table tr:hover {
+  background: rgba(15, 105, 58, 0.05);
 }
 
-.products-table button {
-  margin-right: 5px;
-  padding: 3px 8px;
-  cursor: pointer;
+.edit-btn {
+  background: var(--gold);
+  color: #111;
+}
+
+.delete-btn {
+  background: #b02a2a;
+  color: white;
 }
