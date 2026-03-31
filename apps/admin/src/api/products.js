@@ -1,7 +1,7 @@
 // api/products.js
 import axios from "axios";
 
-const BASE_URL = "/api/full";
+const BASE_URL = "https://duka2repo-production.up.railway.app/api/full";
 
 // Products
 export const fetchProducts = () => axios.get(`${BASE_URL}/`);

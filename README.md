@@ -43,8 +43,6 @@ Duka2
 │  │  │  │  ├─ ErrorBoundary.jsx
 │  │  │  │  └─ ProtectedRoute.jsx
 │  │  │  └─ pages
-│  │  │     ├─ Admin
-│  │  │     │  └─ ProductsAdmin.jsx
 │  │  │     ├─ analytics.css
 │  │  │     ├─ Analytics.jsx
 │  │  │     ├─ Customers.css
@@ -85,6 +83,7 @@ Duka2
 │  │     ├─ middleware
 │  │     │  ├─ authMiddleware.js
 │  │     │  ├─ ProtectedRoute.jsx
+│  │     │  ├─ upload.js
 │  │     │  └─ verifyToken.js
 │  │     ├─ modules
 │  │     │  ├─ orders

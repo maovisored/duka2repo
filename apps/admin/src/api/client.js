@@ -6,7 +6,7 @@ const api = axios.create({
 
 // ✅ Export this properly
 export const getProducts = async () => {
-  const res = await api.get("/products");
+  const res = await api.get("/full");
   return res.data;
 };
 
